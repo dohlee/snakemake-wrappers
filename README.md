@@ -1,3 +1,2 @@
 # snakemake-wrappers
-Snakemake wrappers for bioinformatics tools.
-
+Snakemake wrappers for bioinformatics.
