@@ -17,7 +17,7 @@ extra = snakemake.params.get('extra', '')
 # Extract required arguments.
 input = snakemake.input[0]
 output = snakemake.output[0]
-prefix = path.splitext(output)
+prefix = path.splitext(output)[0]
 
 # Execute shell command.
 shell(
