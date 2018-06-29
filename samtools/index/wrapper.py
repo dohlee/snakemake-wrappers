@@ -20,11 +20,9 @@ output = snakemake.output[0]
 
 # Execute shell command.
 shell(
-    "("
     "samtools index "
     "{extra} "
     "{input} "
     "{output} "
-    ")"
     "{log}"
 )
