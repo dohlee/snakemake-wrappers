@@ -13,6 +13,7 @@ import warnings
 from os import path
 from snakemake.shell import shell
 from rpy2.robjects import pandas2ri
+from rpy2.robjects import Formula
 from rpy2.robjects.packages import importr
 from rpy2.rinterface import RRuntimeError
 from rpy2.rinterface import RRuntimeWarning
@@ -21,7 +22,7 @@ warnings.filterwarnings('ignore', category=RRuntimeWarning)
 base = importr('base')
 
 # Logger settings.
-LOGGER_NAME = 'EBSeq'
+LOGGER_NAME = 'DESeq2'
 logger = logging.getLogger(LOGGER_NAME)
 logger.setLevel(logging.DEBUG)
 stream_handler = logging.StreamHandler()
@@ -53,7 +54,9 @@ def converged(vec, l, threshold=1e-3):
 
 
 # Load required package.
-ebseq = import_bioc('EBSeq')
+deseq2 = import_bioc('DESeq2')
+biocparallel = import_bioc('biocparallel')
+biocparallel.register(MulticoreParam(snakemake.threads))
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
@@ -62,7 +65,7 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 extra = snakemake.params.get('extra', '')
 
 # Extract required arguments.
-data = pd.read_table(snakemake.input.data, index_col=0).iloc[:10, :]  # Input Gene-by-Sample raw count data.
+data = pd.read_table(snakemake.input.data, index_col=0)  # Input Gene-by-Sample raw count data.
 condition = pd.read_table(snakemake.input.condition, index_col=0, names=['condition'])  # Input condition file which indicates to which condition each sample belongs.
 logger.info('%d(genes) x %d(samples) data matrix and %d sample conditions are given.' % (data.shape[0], data.shape[1], len(condition.index)))
 logger.info('Headers: %s...' % ' '.join(data.columns[:3]))
@@ -70,58 +73,24 @@ logger.info('Gene identifiers: %s...' % ' '.join(data.index[:3]))
 
 intersecting_samples = [sample for sample in data.columns if sample in condition.index]
 data = data[intersecting_samples]
-
-condition = list(condition.loc[intersecting_samples].condition.values)
+condition = condition.loc[intersecting_samples]
 logger.info('%d samples will be used for DEG discovery.' % len(intersecting_samples))
 
 pandas2ri.activate()
 r_data_matrix = r['data.matrix'](pandas2ri.py2ri(data))
 pandas2ri.deactivate()
-r_samples = r.colnames(r_data_matrix)
-r_conditions = ro.FactorVector(condition)
 
-logger.info('Computing size factors.')
-r_size_factors = ebseq.MedianNorm(r_data_matrix)
+logger.info('Making DESeq dataset from matrix.')
+r_deseq_dataset = deseq2.DESeqDataSetFromMatrix(countData=r_data_matrix, colData=condition, design=Formula('~ condition'))
 
 logger.info('Discovering DEGs.')
-logger.info('Running EBTest.')
+logger.info('Running DESeq.')
+r_deseq_result = deseq2.DESeq(r_deseq_dataset)
+r_overall_result = deseq2.results(r_deseq_result)
 
-num_iteration = 0
-while True:
-    # Increase iteration numbers if the conditons are not met.
-    # Hopefully most of the tie, 10 iterations will be enough for convergence.
-    num_iteration += 10
-    r_eb_out = ebseq.EBTest(Data=r_data_matrix, Conditions=r_conditions, sizeFactors=r_size_factors, maxround=num_iteration)
-    logger.info('Running GetDEResults.')
-    r_eb_de_result = ebseq.GetDEResults(r_eb_out, FDR=0.05)
-
-    # Check convergences.
-    # Each parameter should change less than 1e-3 between the last two iterations.
-    l = len(r_eb_out[r_eb_out.names.index('Alpha')]) - 1
-    if converged(r_eb_out[r_eb_out.names.index('Alpha')], l) and converged(r_eb_out[r_eb_out.names.index('Beta')], l) and converged(r_eb_out[r_eb_out.names.index('P')], l):
-        break
-
-# Ouput DEG list.
-r_deg_found = r_eb_de_result[r_eb_de_result.names.index('DEfound')]
+# Write DEGs to output file.
 pandas2ri.activate()
-deg_found = pd.DataFrame(pandas2ri.ri2py(r_deg_found))
+result = pd.DataFrame(pandas2ri.ri2py(r_overall_result))
 pandas2ri.deactivate()
-deg_found.to_csv(snakemake.output.deg_list, sep='\t', index=False, header=None)
 
-# Output fold-chanages.
-r_fold_changes = ebseq.PostFC(r_eb_out)
-genes = list(r_fold_changes[r_fold_changes.names.index('PostFC')].names)
-post_fc = list(r_fold_changes[r_fold_changes.names.index('PostFC')])
-real_fc = list(r_fold_changes[r_fold_changes.names.index('RealFC')])
-direction = list(r_fold_changes[r_fold_changes.names.index('Direction')])
-pandas2ri.activate()
-fold_changes = pd.DataFrame({'PostFC':post_fc, 'RealFC':real_fc, 'Direction':direction}, index=genes)
-pandas2ri.deactivate()
-fold_changes.to_csv(snakemake.output.fold_change, sep='\t')
-
-# Output result table.
-r_result = r_eb_de_result[r_eb_de_result.names.index('PPMat')]
-pandas2ri.activate()
-result = pd.DataFrame(pandas2ri.ri2py(r_result), index=genes, columns=['padj', '1-padj'])
-pandas2ri.deactivate()
 result.to_csv(snakemake.output.result, sep='\t')
