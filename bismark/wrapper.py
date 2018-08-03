@@ -31,13 +31,13 @@ assert path.join(reference_dir, 'Bisulfite_Genome') == bisulfite_genome_dir, \
     'Please check that bismark_genome_preparation has been successfully finished.'
 
 # Determine the number of threads.
-# Since a typical Bismark run with 1 thread already uses 3 (with --bowtie1) threads,
-# and 5 (with --bowtie2 which is default option), this wrapper divides the number of
-# user-defined threads with 3 or 5, depending on the bowtie option.
+# Since a typical Bismark run with 1 thread already uses about 2 (with --bowtie1) threads,
+# and 3 (with --bowtie2 which is default option), this wrapper divides the number of
+# user-defined threads with 2 or 3, depending on the bowtie option.
 if '--bowtie1' in extra:
-    threads = max(1, snakemake.threads // 3)
+    threads = max(1, snakemake.threads // 2)
 else:
-    threads =  max(1, snakemake.threads // 5)
+    threads = max(1, snakemake.threads // 3)
 
 # NOTE:
 # Single-end Bismark call (with bowtie2) will produce two output files:
@@ -62,6 +62,7 @@ shell(
     "("
     "bismark "
     "{extra} "
+    "-o {output_directory} "
     "--multicore {threads} "
     "{reference_dir} "
     "{read_command} "
