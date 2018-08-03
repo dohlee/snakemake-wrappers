@@ -16,8 +16,8 @@ extra = snakemake.params.get('extra', '')
 
 # Extract required arguments.
 # Accession should start with 'SRR', 'ERR', or 'DRR'.
-assert snakemake.input in ['SRR', 'ERR', 'DRR'], 'Accession should start with "SRR", "ERR", or "DRR".'
-acc = snakemake.input
+assert snakemake.output[0][:3] in ['SRR', 'ERR', 'DRR'], 'Accession should start with "SRR", "ERR", or "DRR".'
+acc = snakemake.output[0].split('.')[0]
 
 # Construct the path of sra file, according to the example sra path.
 # ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR119/SRR1192353/SRR1192353.sra
