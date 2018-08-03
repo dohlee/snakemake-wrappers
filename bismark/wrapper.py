@@ -17,13 +17,18 @@ extra = snakemake.params.get('extra', '')
 # Extract required arguments.
 fastq = snakemake.input.fastq
 fastq = [fastq] if isinstance(fastq, str) else fastq
-assert len(fastq) <= 2, "Your sequencing read should be single- or paired-ended."
+assert len(fastq) <= 2, 'Your sequencing read should be single- or paired-ended.'
 read_command = '-1 %s -2 %s' % (fastq[0], fastq[1]) if len(fastq) == 2 else fastq[0]
 
 # Path to the directory containing the unmodified reference genome,
 # as well as the subfolders created by the `bismark_genome_preparation` script.
 # Refer to: https://www.bioinformatics.babraham.ac.uk/projects/bismark/Bismark_User_Guide.pdf
 reference_dir = snakemake.input.reference_dir
+
+# Ensure `bismark_genome_preparation` script had been run.
+bisulfite_genome_dir = snakemake.input.bisulfite_genome_dir
+assert path.join(reference_dir, 'Bisulfite_Genome') == bisulfite_genome_dir, \
+    'Please check that bismark_genome_preparation has been successfully finished.'
 
 # Determine the number of threads.
 # Since a typical Bismark run with 1 thread already uses 3 (with --bowtie1) threads,
