@@ -4,8 +4,8 @@ rule samtools_sort:
     output:
         '{sample}.sorted.bam'
     threads: 1
-    extra:
-        ''
+    params:
+        extra = ''
         # Approximate total memory limit for all threads [2GB].
         # '-m INT '
         # Directory for storing intermediate files.

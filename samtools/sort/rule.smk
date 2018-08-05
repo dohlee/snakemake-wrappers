@@ -3,8 +3,8 @@ rule samtools_sort:
         '{sample}.bam'
     output:
         '{sample}.sorted.bam'
-    extra:
-        ''
+    params:
+        extra = ''
         # Set compression level.
         # '-l INT '
         # Set maximum memory per thread; suffix K/M/G/ recognized [768M].
