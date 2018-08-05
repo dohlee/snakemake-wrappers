@@ -4,14 +4,14 @@ rule samtools_sort:
     output:
         '{sample}.sorted.bam'
     params:
-        extra = ''
+        extra = '' \
         # Set compression level.
-        # '-l INT '
+        # '-l INT ' \
         # Set maximum memory per thread; suffix K/M/G/ recognized [768M].
-        # '-m INT '
+        # '-m INT ' \
         # Sort by read name.
-        # '-n '
+        # '-n ' \
         # Sort by value of TAG.
-        # '-t TAG '
+        # '-t TAG ' \
     wrapper:
         'http://dohlee-bio.info:9193/samtools/sort'

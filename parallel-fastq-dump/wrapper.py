@@ -40,8 +40,8 @@ if len(snakemake.output) == 3:
 
     raw_orphan_read_file = path.join(output_directory, '%s.fastq.gz' % sample_name)
     renamed_orphan_read_file = path.join(output_directory, '%s.orphan.fastq.gz' % sample_name)
-    rename_command = '&& mv {raw_orphan_read_file} {renamed_orphan_read_file} '
-                     '&& mv {raw_read1_file} {renamed_read1_file} '
+    rename_command = '&& mv {raw_orphan_read_file} {renamed_orphan_read_file} ' \
+                     '&& mv {raw_read1_file} {renamed_read1_file} ' \
                      '&& mv {raw_read2_file} {renamed_read2_file}'
 else:
     rename_command = ''
