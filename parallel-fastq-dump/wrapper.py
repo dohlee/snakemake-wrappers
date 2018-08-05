@@ -24,7 +24,7 @@ assert len(snakemake.output) in [1, 3], \
     Hint: *.fastq.gz for single-end, *.read1.fastq.gz, *.read2.fastq.gz, *.orphan.fastq.gz for paired-end.'
 output_directory = path.dirname(snakemake.output[0])
 
-# NOTE: For paired-end case, we rename orphan read file *.fastq.gz into *.orphan.fastq.gz
+# NOTE: For paired-end case, we rename orphan read file *.fastq.gz into *.orphan.fastq.gz.
 # because the original file name *.fastq.gz makes snakemake unable to distinguish with the result of single-end cases.
 if len(snakemake.output) == 3:
     # Extract sample name.
@@ -32,19 +32,28 @@ if len(snakemake.output) == 3:
         if output.endswith('.read1.fastq.gz'):
             sample_name = output[:-15]
 
-    raw_read1_file = path.join(output_directory, '%s_1.fastq.gz' % sample_name)
-    renamed_read1_file = path.join(output_directory, '%s.read1.fastq.gz' % sample_name)
+    raw_read1_file = '%s_pass_1.fastq.gz' % sample_name
+    renamed_read1_file = '%s.read1.fastq.gz' % sample_name
 
-    raw_read2_file = path.join(output_directory, '%s_2.fastq.gz' % sample_name)
-    renamed_read2_file = path.join(output_directory, '%s.read2.fastq.gz' % sample_name)
+    raw_read2_file = '%s_pass_2.fastq.gz' % sample_name
+    renamed_read2_file = '%s.read2.fastq.gz' % sample_name
 
-    raw_orphan_read_file = path.join(output_directory, '%s.fastq.gz' % sample_name)
-    renamed_orphan_read_file = path.join(output_directory, '%s.orphan.fastq.gz' % sample_name)
-    rename_command = '&& mv {raw_orphan_read_file} {renamed_orphan_read_file} ' \
-                     '&& mv {raw_read1_file} {renamed_read1_file} ' \
-                     '&& mv {raw_read2_file} {renamed_read2_file}'
+    raw_orphan_read_file = '%s_pass.fastq.gz' % sample_name
+    renamed_orphan_read_file = '%s.orphan.fastq.gz' % sample_name
+    rename_command = '&& mv %s %s ' \
+                     '&& mv %s %s ' \
+                     '&& mv %s %s ' \
+                     (raw_orphan_read_file, renamed_orphan_read_file,
+                      raw_read1_file, renamed_read1_file,
+                      raw_read2_file, renamed_read2_file)
+
+# NOTE: For single-end case, we rename *_pass.fastq.gz into *.fastq.gz.
 else:
-    rename_command = ''
+    # Extract sample name from *.fastq.gz
+    sample_name = snakemake.output[0][:-9]
+    raw_read_file = '%s_pass.fastq.gz' % sample_name
+    renamed_read_file = '%s.fastq.gz' % sample_name
+    rename_command = '&& mv %s %s' % (raw_read_file, renamed_read_file)
 
 # If user wants output files to be gzipped, but did not specified --gzip option,
 # kindly add --gzip option to extra options.
@@ -59,7 +68,7 @@ shell(
     "parallel-fastq-dump "
     "-s {sra} "
     "-t {snakemake.threads} "
-    "-O {snakemake.output} "
+    "-O {output_directory} "
     "--split-3 --skip-technical --readids --clip --read-filter pass "
     "{extra} "
     ")"
