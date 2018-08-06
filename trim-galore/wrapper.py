@@ -49,7 +49,7 @@ if len(snakemake.input) == 2:
 else:
     # Extract sample name from *.fastq.gz
     sample_name = snakemake.input[0][:-9]
-    raw_read_file = '%s_trimmed.fastq.gz' % sample_name
+    raw_read_file = '%s_trimmed.fq.gz' % sample_name
     renamed_read_file = '%s.trimmed.fastq.gz' % sample_name
     rename_command = '&& mv %s %s' % (raw_read_file, renamed_read_file)
 
