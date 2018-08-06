@@ -50,7 +50,7 @@ else:
 # Check there are two output file specified.
 if len(fastq) == 1:
     assert len(snakemake.output) == 2, \
-        'Bismark has two outputs (with bowtie2): *_bismark_bt2_se.bam and *_bismark_bt2_SE_report.txt'
+        'Bismark has two outputs (with bowtie2): *_bismark_bt2.bam and *_bismark_bt2_SE_report.txt'
 else:
     assert len(snakemake.output) == 2, \
         'Bismark has two outputs (with bowtie2): *_bismark_bt2_pe.bam and *_bismark_bt2_PE_report.txt'
