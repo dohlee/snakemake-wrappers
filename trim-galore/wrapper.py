@@ -23,7 +23,8 @@ if len(snakemake.input) == 1:
     read_command = snakemake.input[0]
 # Paired-end case.
 else:
-    read_command = '--paired {snakemake.input[0]} {snakemake.input[1]}'
+    a, b = snakemake.input[0], snakemake.input[1]
+    read_command = '--paired %s %s' % (a, b)
 
 output_directory = path.dirname(snakemake.output[0])
 # NOTE: For paired-end case, we rename output file *.read1_val_1.fq.gz into *.read1.trimmed.fastq.gz,
@@ -31,8 +32,8 @@ output_directory = path.dirname(snakemake.output[0])
 if len(snakemake.input) == 2:
     # Extract sample name.
     for output in snakemake.output:
-        if output.endswith('.read1.fastq.gz'):
-            sample_name = output[:-15]
+        if output.endswith('.read1.trimmed.fastq.gz'):
+            sample_name = output[:-23]
 
     raw_read1_file = '%s.read1_val_1.fq.gz' % sample_name
     renamed_read1_file = '%s.read1.trimmed.fastq.gz' % sample_name
