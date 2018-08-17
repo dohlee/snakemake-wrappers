@@ -12,6 +12,6 @@ rule samtools_sort:
         # Sort by read name.
         # '-n ' \
         # Sort by value of TAG.
-        # '-t TAG ' \
+        # '-t TAG '
     wrapper:
         'http://dohlee-bio.info:9193/samtools/sort'

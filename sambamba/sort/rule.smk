@@ -1,4 +1,4 @@
-rule samtools_sort:
+rule sambamba_sort:
     input:
         '{sample}.bam'
     output:
@@ -15,6 +15,6 @@ rule samtools_sort:
         # Compression level for sorted BAM, from 0 to 9.
         # '--compression-leve=COMPRESSION_LEVEL ' \
         # Keep only reads that satisfy FILTER.
-        # '--filter=FILTER ' \
+        # '--filter=FILTER '
     wrapper:
         'http://dohlee-bio.info:9193/sambamba/sort'
