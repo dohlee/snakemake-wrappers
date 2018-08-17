@@ -17,16 +17,14 @@ extra = snakemake.params.get('extra', '')
 # Extract required arguments.
 sra = snakemake.input
 
-# Output should be one or three files
-# *.read1.fastq.gz, *.read2.fastq.gz, *.fastq.gz
-assert len(snakemake.output) in [1, 3], \
+# Output should be one or two files
+# *.read1.fastq.gz, *.read2.fastq.gz
+assert len(snakemake.output) in [1, 2], \
     'Please specify one(single-end) or three(paired-end) fastq.gz files to the output.\n\n\
-    Hint: *.fastq.gz for single-end, *.read1.fastq.gz, *.read2.fastq.gz, *.orphan.fastq.gz for paired-end.'
-output_directory = path.dirname(snakemake.output[0])
+    Hint: *.fastq.gz for single-end, *.read1.fastq.gz, *.read2.fastq.gz for paired-end.'
+output_directory = path.dirname(snakemake.output[0]) or '.'
 
-# NOTE: For paired-end case, we rename orphan read file *.fastq.gz into *.orphan.fastq.gz.
-# because the original file name *.fastq.gz makes snakemake unable to distinguish with the result of single-end cases.
-if len(snakemake.output) == 3:
+if len(snakemake.output) == 2:
     # Extract sample name.
     for output in snakemake.output:
         if output.endswith('.read1.fastq.gz'):
@@ -38,13 +36,9 @@ if len(snakemake.output) == 3:
     raw_read2_file = '%s_pass_2.fastq.gz' % sample_name
     renamed_read2_file = '%s.read2.fastq.gz' % sample_name
 
-    raw_orphan_read_file = '%s_pass.fastq.gz' % sample_name
-    renamed_orphan_read_file = '%s.orphan.fastq.gz' % sample_name
     rename_command = '&& mv %s %s ' \
-                     '&& mv %s %s ' \
-                     '&& mv %s %s ' \
-                     (raw_orphan_read_file, renamed_orphan_read_file,
-                      raw_read1_file, renamed_read1_file,
+                     '&& mv %s %s ' %\
+                     (raw_read1_file, renamed_read1_file,
                       raw_read2_file, renamed_read2_file)
 
 # NOTE: For single-end case, we rename *_pass.fastq.gz into *.fastq.gz.
@@ -58,7 +52,7 @@ else:
 # If user wants output files to be gzipped, but did not specified --gzip option,
 # kindly add --gzip option to extra options.
 if all(f.endswith('.gz') for f in snakemake.output) and ('--gzip' not in extra):
-    extra += ' --gzip'
+    extra += '--gzip'
 
 # NOTE: I fixed some recommended options for fastq-dump.
 # Refer to: `fastq-dump-best-practice` in https://github.com/dohlee/bioinformatics-one-liners.
