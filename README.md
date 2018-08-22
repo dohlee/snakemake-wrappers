@@ -8,8 +8,9 @@ Snakemake wrappers for bioinformatics.
 ### Routine analysis
 
 - DEG discovery
-  - deseq2
-  - ebseq
+  - DESeq2
+  - EBSeq
+  - edgeR
 
 ### File format handlers
 
