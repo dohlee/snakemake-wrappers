@@ -1,8 +1,6 @@
 # snakemake-wrappers
 Snakemake wrappers for bioinformatics.
 
-
-
 ## Available wrappers
 
 ### Routine analysis
@@ -12,11 +10,16 @@ Snakemake wrappers for bioinformatics.
   - EBSeq
   - edgeR
 
+### Variant calling
+
+- freebayes
+
 ### File format handlers
 
 - sambamba
   - index
   - sort
+  - markdup
 - samtools
   - index
   - sort
