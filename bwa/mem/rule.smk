@@ -15,7 +15,7 @@ rule bwa_mem:
     params:
         # -M option marks secondary alignments.
         # You may need this if you use GATK downstream.
-        extra = "-M" \
+        extra = "-M " \
                 # Read group annotation. Omit if unused.
                 "-R '@RG\tID:{sample}\tSM:{sample}'",
     threads: 8

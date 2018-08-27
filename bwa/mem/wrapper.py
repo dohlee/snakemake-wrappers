@@ -17,9 +17,9 @@ extra = snakemake.params.get('extra', '')
 # Extract required inputs.
 reads = snakemake.input.reads
 mates = snakemake.input.get('mates', '')
-reference = snakemake.input.referece
+reference = snakemake.input.reference
 
-db_prefix = path.join(path.dirname(reference), path.splitext(reference)[0])
+db_prefix = path.splitext(reference)[0]
 
 # If -p option is present, 'mates' will be ignored and bwa-mem will assume 2i and 2i+1-th read files are paired.
 input_is_interleaved = '-p' in extra
