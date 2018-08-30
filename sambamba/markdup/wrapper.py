@@ -18,10 +18,12 @@ output = snakemake.output[0]
 
 # Execute shell command.
 shell(
+    "("
     "sambamba markdup "
     "{extra} "
     "-t {snakemake.threads} "
     "{input} "
     "{output} "
+    ") "
     "{log}"
 )

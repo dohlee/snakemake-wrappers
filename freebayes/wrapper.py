@@ -43,8 +43,8 @@ shell(
     "{extra} "
     "-f {reference} "
     "{bams_option} "
-    ") "
     "{pipe_command} > "
     "{output} "
+    ") "
     "{log}"
 )

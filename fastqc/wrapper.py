@@ -24,10 +24,12 @@ output_directory = path.dirname(html)
 
 # Execute shell command.
 shell(
+    "("
     "fastqc "
     "-o {output_directory} "
     "-t {snakemake.threads} "
     "{extra} "
     "{read_command} "
+    ") "
     "{log}"
 )

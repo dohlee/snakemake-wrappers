@@ -21,11 +21,13 @@ prefix = path.splitext(output)[0]
 
 # Execute shell command.
 shell(
+    "("
     "samtools sort "
     "{extra} "
     "-@ {snakemake.threads} "
     "-o {output} "
     "-T {prefix} "
     "{input}"
+    ") "
     "{log}"
 )

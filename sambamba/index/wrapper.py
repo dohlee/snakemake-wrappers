@@ -18,11 +18,13 @@ output = snakemake.output[0]
 
 # Execute shell command.
 shell(
+    "("
     "sambamba index "
     "{extra} "
     "-t {snakemake.threads} "
     "-p "
     "{input} "
     "{output} "
+    ") "
     "{log}"
 )

@@ -69,7 +69,7 @@ shell(
     "{read_command} "
     "-o {output_directory} "
     "{extra} "
+    "{rename_command}"
     ")"
     "{log} "
-    "{rename_command}"
 )

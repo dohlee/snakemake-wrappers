@@ -65,7 +65,7 @@ shell(
     "-O {output_directory} "
     "--split-3 --skip-technical --clip --read-filter pass "
     "{extra} "
-    ")"
+    "{rename_command} "
+    ") "
     "{log} "
-    "{rename_command}"
 )
