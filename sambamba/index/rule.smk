@@ -1,4 +1,4 @@
-rule sambamba_sort:
+rule sambamba_index:
     input:
         '{sample}.sorted.bam'
     output:
