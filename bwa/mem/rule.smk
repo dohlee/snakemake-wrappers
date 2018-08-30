@@ -15,10 +15,10 @@ rule bwa_mem:
     params:
         # -M option marks secondary alignments.
         # You may need this if you use GATK downstream.
-        extra = "-M " \
+        extra = r"-M " \
                 # Read group annotation. Omit if unused.
                 # NOTE: You should check the platform information of the read data!
-                "-R '@RG\tID:{sample}\tSM:{sample}\tPL:ILLUMINA'",
+                r"-R '@RG\tID:{sample}\tSM:{sample}\tPL:ILLUMINA'",
     threads: 8
     wrapper:
         'http://dohlee-bio.info:9193/bwa/mem'
