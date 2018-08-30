@@ -45,8 +45,7 @@ shell(
     "{db_prefix} "
     "{reads} "
     "{mates} "
-    ") "
     "{pipe_command} > "
-    "{output} "
+    "{output}) "
     "{log}"
 )

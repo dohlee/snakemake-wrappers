@@ -17,7 +17,8 @@ rule bwa_mem:
         # You may need this if you use GATK downstream.
         extra = "-M " \
                 # Read group annotation. Omit if unused.
-                "-R '@RG\tID:{sample}\tSM:{sample}'",
+                # NOTE: You should check the platform information of the read data!
+                "-R '@RG\tID:{sample}\tSM:{sample}\tPL:ILLUMINA'",
     threads: 8
     wrapper:
         'http://dohlee-bio.info:9193/bwa/mem'
