@@ -63,7 +63,7 @@ shell(
     "-s {sra} "
     "-t {snakemake.threads} "
     "-O {output_directory} "
-    "--split-3 --skip-technical --readids --clip --read-filter pass "
+    "--split-3 --skip-technical --clip --read-filter pass "
     "{extra} "
     ")"
     "{log} "

@@ -22,6 +22,7 @@ rule parallel_fastq_dump_paired:
         '{sample}.read1.fastq.gz',
         '{sample}.read2.fastq.gz'
     params:
+        # Optional parameters. Omit if unused.
         extra = ''
     threads: 4
     wrapper:
