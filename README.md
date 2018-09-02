@@ -55,3 +55,7 @@ Snakemake wrappers for bioinformatics.
 - salmon
   - index
   - quant
+
+### Misc
+
+- subsample-fastq
