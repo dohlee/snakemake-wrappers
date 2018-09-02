@@ -19,6 +19,7 @@ rule star_2_pass:
         # Also it is recommened to use GENCODE annotation file, either of GTF of GFF3 file.
         # Don't forget to specify sjdb_gtf_tag_exon_parent_transcript = 'Parent'
         # in case of GFF3 annotation file.
+        # NOTE: Make sure the annotation file is unzipped!
         sjdb_gtf_file = '',
         # Length of the donor/acceptor sequence on each side of the junctions,
         # ideally = (maxReadLength - 1).
