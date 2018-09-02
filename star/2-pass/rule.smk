@@ -1,7 +1,6 @@
 rule star_2_pass:
     input:
         # Required input.
-        # NOTE: Reference genome should be uncompressed.
         reads = ['{sample}.fastq.gz'],
         star_index = directory('reference/star_index')
     output:
@@ -30,6 +29,6 @@ rule star_2_pass:
         # If you use GFF3 annotation file,
         # use sjdb_gtf_tag_exon_parent_transcript = 'Parent'
         sjdb_gtf_tag_exon_parent_transcript = '',
-    log: 'logs/star/star/2-pass/{sample}.log'
+    log: 'logs/star/2-pass/{sample}.log'
     wrapper:
         'http://dohlee-bio.info:9193/star/2-pass'
