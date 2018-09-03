@@ -7,6 +7,9 @@
 <h2 align="center">Available wrappers</h2>
 
 ### Routine analysis
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d1ec57419dab432ca9050207978cf168)](https://app.codacy.com/app/apap950419/snakemake-wrappers?utm_source=github.com&utm_medium=referral&utm_content=dohlee/snakemake-wrappers&utm_campaign=Badge_Grade_Dashboard)
+
 - DEG discovery
   - DESeq2
   - EBSeq
