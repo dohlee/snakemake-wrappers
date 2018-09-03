@@ -22,5 +22,10 @@ jobs:
           cat $HOME/.condarc
       # Install snakemake.
       - run: conda install snakemake
+      # List up available tests.
+      - run: find . -name "test.smk" > $HOME/tests.list
       # Run tests.
-      - run: snakemake -s sambamba/index/test/test.smk --directory sambamba/index/test --use-conda --wrapper-prefix 'http://dohlee-bio.info:9193/'
+      - run: |
+          for test in `cat $HOME/tests.list`; do
+          snakemake -s $test --directory ${test%test.smk} --use-conda --wrapper-prefix 'http://dohlee-bio.info:9193/';
+          done

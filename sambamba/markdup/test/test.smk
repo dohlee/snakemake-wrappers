@@ -2,7 +2,7 @@ from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 HTTP = HTTPRemoteProvider()
 
 rule all:
-    input: 'test.sorted.bam.bai'
+    input: 'test.sorted.duplicates_marked.bam'
 
 rule sambamba_sort:
     input:
@@ -12,10 +12,11 @@ rule sambamba_sort:
     wrapper:
         'sambamba/sort'
 
-rule sambamba_index:
+rule sambamba_markdup:
     input:
-        'test.sorted.bam'
+        '{sample}.sorted.bam'
     output:
-        'test.sorted.bam.bai'
+        '{sample}.sorted.duplicates_marked.bam'
+    threads: 1
     wrapper:
-        'sambamba/index'
+        'sambamba/markdup'

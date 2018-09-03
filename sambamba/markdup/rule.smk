@@ -1,4 +1,4 @@
-rule sambamba_sort:
+rule sambamba_markdup:
     input:
         '{sample}.sorted.bam'
     output:
