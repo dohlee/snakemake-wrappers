@@ -20,5 +20,7 @@ jobs:
           echo "  - defaults" >> $HOME/.condarc
           echo "always_yes: true" >> $HOME/.condarc
           cat $HOME/.condarc
-      # Install tools for test.
-      - run: conda install snakemake kallisto bwa fastqc
+      # Install snakemake.
+      - run: conda install snakemake
+      # Run tests.
+      - run: snakemake -s sambamba/index/test/test.smk --directory sambamba/index/test --use-conda --wrapper-prefix 'http://dohlee-bio.info:9193/'
