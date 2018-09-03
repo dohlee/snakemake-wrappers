@@ -106,7 +106,7 @@ logger.debug('Finding DEGs.')
 fit = edgeR.glmFit(dge_list, design_matrix)
 lrt = edgeR.glmLRT(fit)
 
-edger_result = edgeR.topTags(lrt)
+edger_result = edgeR.topTags(lrt, n=len(data.index))
 edger_result_table = pandas2ri.ri2py(edger_result[edger_result.names.index('table')])
 edger_result_table.to_csv(snakemake.output.result, sep='\t')
 
