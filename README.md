@@ -2,6 +2,7 @@
 <p align="center">Snakemake wrappers for bioinformatics.</p>
 <p align="center">
   <a href="https://circleci.com/gh/dohlee/snakemake-wrappers"><img src="https://circleci.com/gh/dohlee/snakemake-wrappers.svg?style=svg" /></a>
+  <a href="https://www.codacy.com/app/apap950419/snakemake-wrappers?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dohlee/snakemake-wrappers&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/a09065e963d9486dbeafecf7dbe44da0" /></a>
 </p>
 
 <h2 align="center">Available wrappers</h2>
