@@ -42,7 +42,7 @@ star_index = snakemake.input.star_index
 
 # Extract required outputs.
 output_sorted_bam = snakemake.output[0]
-output_prefix = output_sorted_bam[:10]
+output_prefix = output_sorted_bam[:-10]  # Strip tailing 'sorted.bam'.
 
 # Extract parameters.
 # Extract optional parameters.
@@ -58,7 +58,7 @@ sjdb_gtf_chr_prefix = optionify_params('sjdb_gtf_chr_prefix', '--sjdbGTFchrPrefi
 sjdb_gtf_tag_exon_parent_transcript = optionify_params('sjdb_gtf_tag_exon_parent_transcript', '--sjdbGTFtagExonParentTranscript')
 
 # rename {output_prefix}Aligned.sortedByCoord.out.bam into {output_prefix}.sorted.bam
-rename_command = '&& mv %sAligned.sortedByCoord.out.bam %s.sorted.bam'
+rename_command = '&& mv {prefix}Aligned.sortedByCoord.out.bam {prefix}sorted.bam'.format(prefix=output_prefix)
 
 # Execute shell command.
 shell(
