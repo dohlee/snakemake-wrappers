@@ -1,7 +1,7 @@
 rule edgeR:
     input:
         # Required.
-        data = 'GENE_EXPRESSION_TABLE',
+        data = 'GENE_EXPRESSION_RAW_COUNT_TABLE',
         condition = 'CONDITION_TABLE',
     threads: 1
     output:
