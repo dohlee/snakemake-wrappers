@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - trim-galore=0.5.0

@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - salmon=0.11.3
