@@ -5,6 +5,9 @@ jobs:
       - image: circleci/python:3.6.1
     steps:
       - checkout
+      # Install awk.
+      - run: |
+          sudo apt-get install gawk
       # Install miniconda and setup environment variables.
       - run: |
           wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O installer.sh
