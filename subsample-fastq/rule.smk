@@ -1,4 +1,4 @@
-rule subsample-fastq:
+rule subsample_fastq:
     input:
         # Required input.
         reads = ['data/{sample}/{sample}.fastq.read1.gz', 'data/{sample}/{sample}.fastq.read2.gz']

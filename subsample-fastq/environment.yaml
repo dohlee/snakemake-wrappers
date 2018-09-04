@@ -1,2 +1,4 @@
 channels:
   - bioconda
+dependencies:
+  - bioawk
