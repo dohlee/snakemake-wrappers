@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - freebayes=1.2.0

@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - bioconductor-edger=3.20.7

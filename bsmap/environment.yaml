@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - bsmap=2.90

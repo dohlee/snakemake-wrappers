@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - htseq=0.9.1
