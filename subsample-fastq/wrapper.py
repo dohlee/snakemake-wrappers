@@ -4,12 +4,17 @@ __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
 
-from os import path
-
 from snakemake.shell import shell
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
+
+# Define exception classes.
+class RuleInputException(Exception):
+    pass
+
+class RuleParameterException(Exception):
+    pass
 
 def optionify_input(parameter, option):
     """Return optionified parameter."""
@@ -37,7 +42,8 @@ def optionify_params(parameter, option):
 reads = snakemake.input.reads
 if isinstance(reads, str):
     reads = [reads]
-assert len(reads) in [1, 2], "Input should be single-read or paired-end."
+if len(reads) not in [1, 2]:
+    raise RuleInputException('Input should be single-read or paired-end.')
 
 # Extract required outputs.
 output = snakemake.output
@@ -47,7 +53,8 @@ ungzipped_output = [o[:-3] if o.endswith('.gz') else o for o in output]
 # Extract parameters.
 # Extract optional parameters.
 k = snakemake.params.get('k', '')
-assert k != '', 'Please provide the number of sampled reads (k).'
+if k == '':
+    raise RuleParameterException('Please provide the number of sampled reads (k) as a parameter.')
 
 # Organize commands.
 if all(r.endswith('.gz') for r in reads):

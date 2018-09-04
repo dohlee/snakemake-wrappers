@@ -23,6 +23,9 @@ pandas2ri.activate()
 LOGGER_NAME = 'edgeR'
 logger = cleanlog.ColoredLogger(LOGGER_NAME)
 
+# Define exception classes.
+class RuleParameterException(Exception):
+    pass
 
 def import_bioc(package_name):
     """Import bioconductor packages. If not installed, install the package."""
@@ -48,7 +51,8 @@ extra = snakemake.params.get('extra', '')
 cutoff = snakemake.params.get('cutoff', 0.05)
 verbose = snakemake.params.get('verbose', False)
 dispersion = snakemake.params.get('dispersion', 'common')  # common, trended, tagwise
-assert dispersion in ['common', 'trended', 'tagwise'], 'Dispersion estimation should be one of ["common", "trended", "tagwise"].'
+if dispersion not in ['common', 'trended', 'tagwise']:
+    raise RuleParameterException('Dispersion estimation should be on of ["common", "trended", "tagwise"].')
 if verbose:
     logger.setLevel(cleanlog.DEBUG)
 else:

@@ -9,6 +9,10 @@ from snakemake.shell import shell
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
+# Define exception classes.
+class RuleInputException(Exception):
+    pass
+
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
 
@@ -19,8 +23,10 @@ if isinstance(reads, str):
     reads = [reads]
 if isinstance(mates, str):
     mates = [mates]
-assert len(reads) >= 1, 'You should give at least one reads and mates. Given: %d' % len(reads)
-assert len(reads) == len(mates), 'The number of reads and their pairs should match. Given: %d reads, %d mates' % (len(reads), len(mates))
+if len(reads) < 1:
+    raise RuleInputException('You should give at least one reads and mates. Given: %d' % len(reads))
+if len(reads) != len(mates):
+    raise RuleInputException('The number of reads and their pairs should match. Given: %d reads, %d mates' % (len(reads), len(mates)))
 
 reads, mates = ','.join(reads), ','.join(mates)
 

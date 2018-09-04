@@ -11,6 +11,10 @@ from snakemake.shell import shell
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
+# Define exception classes.
+class RuleInputException(Exception):
+    pass
+
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
 library_type = snakemake.params.get('library_type', 'A')
@@ -18,7 +22,8 @@ library_type = snakemake.params.get('library_type', 'A')
 # Extract required arguments.
 fastq = snakemake.input.fastq
 fastq = [fastq] if isinstance(fastq, str) else fastq
-assert len(fastq) <= 2, "Your sequencing read should be single- or paired-ended."
+if len(fastq) > 2:
+    raise RuleInputException('Your sequencing read should be single-read or paired-end.')
 
 # Single-end command
 if len(fastq) == 1:

@@ -3,12 +3,15 @@ __copyright__ = "Copyright 2018, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
-import itertools
 
 from snakemake.shell import shell
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
+
+# Define exception classes.
+class RuleInputException(Exception):
+    pass
 
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
@@ -18,7 +21,8 @@ fasta = snakemake.input.fasta
 gtf = snakemake.input.get('gtf', None)
 gff3 = snakemake.input.get('gff3', None)
 
-assert not ((gtf is not None) and (gff3 is not None)), 'You cannot provide both GTF and GFF3 files.'
+if (gtf is not None) and (gff3 is not None):
+    raise RuleInputException('You cannot provide both GTF and GFF3 files.')
 annotation_option = ''
 if gtf is not None:
     annotation_option = '--gtf {gtf}'

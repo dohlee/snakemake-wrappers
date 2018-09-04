@@ -11,10 +11,15 @@ from snakemake.shell import shell
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
+# Define exception classes.
+class RuleParameterException(Exception):
+    pass
+
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
 # `--fastqc` flag should not be included.
-assert '--fastqc' not in extra, "Don't run trim_galore with --fastqc option."
+if '--fastqc' in extra:
+    raise RuleParameterException('Please do not run trim_galore with --fastqc option.')
 
 # Extract required arguments.
 # Input should be single-ended or paired-ended.

@@ -11,6 +11,10 @@ from snakemake.shell import shell
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
+# Define exception class.
+class RuleOutputException(Exception):
+    pass
+
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
 
@@ -19,9 +23,9 @@ sra = snakemake.input
 
 # Output should be one or two files
 # *.read1.fastq.gz, *.read2.fastq.gz
-assert len(snakemake.output) in [1, 2], \
-    'Please specify one(single-end) or three(paired-end) fastq.gz files to the output.\n\n\
-    Hint: *.fastq.gz for single-end, *.read1.fastq.gz, *.read2.fastq.gz for paired-end.'
+if len(snakemake.output) not in [1, 2]:
+    raise RuleOutputException('Please specify one(single-end) or two(paired-end) fastq files to the output.\n\n\
+                               Hint: *.fastq.gz for single-end, *.read1.fastq.gz and *.read2.fastq.gz for paired-end.')
 output_directory = path.dirname(snakemake.output[0]) or '.'
 
 if len(snakemake.output) == 2:

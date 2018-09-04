@@ -15,7 +15,6 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 extra = snakemake.params.get('extra', '')
 
 # Extract required arguments.
-assert isinstance(snakemake.input, list), 'Sequencing read files should be supplied as a list.'
 read_command = ' '.join(snakemake.input)
 
 html = snakemake.output.html

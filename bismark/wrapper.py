@@ -9,13 +9,24 @@ from snakemake.shell import shell
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
+# Define exception classes.
+class GenomePreparationNotCompletedException(Exception):
+    pass
+
+class RuleInputException(Exception):
+    pass
+
+class RuleOutputException(Exception):
+    pass
+
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
 
 # Extract required arguments.
 fastq = snakemake.input.fastq
 fastq = [fastq] if isinstance(fastq, str) else fastq
-assert len(fastq) <= 2, 'Your sequencing read should be single- or paired-ended.'
+if len(fastq) > 2:
+    raise RuleInputException('Your sequencing read should be single-read or paired-ended.')
 read_command = '-1 %s -2 %s' % (fastq[0], fastq[1]) if len(fastq) == 2 else fastq[0]
 
 # Path to the directory containing the unmodified reference genome,
@@ -25,8 +36,8 @@ reference_dir = snakemake.input.reference_dir
 
 # Ensure `bismark_genome_preparation` script had been run.
 bisulfite_genome_dir = snakemake.input.bisulfite_genome_dir
-assert path.join(reference_dir, 'Bisulfite_Genome') == bisulfite_genome_dir, \
-    'Please check that bismark_genome_preparation has been successfully finished.'
+if path.join(reference_dir, 'Bisulfite_Genome') != bisulfite_genome_dir:
+    raise GenomePreparationNotCompletedException('Please check that bismark_genome_preparation has been successfully finised.')
 
 # Determine the number of threads.
 # Since a typical Bismark run with 1 thread already uses about 2 (with --bowtie1) threads,
@@ -46,12 +57,11 @@ else:
 # 2. {fastq-read1-filename}_bismark_bt2_PE_report.txt
 
 # Check there are two output file specified.
-if len(fastq) == 1:
-    assert len(snakemake.output) == 2, \
-        'Bismark has two outputs (with bowtie2): *_bismark_bt2.bam and *_bismark_bt2_SE_report.txt'
-else:
-    assert len(snakemake.output) == 2, \
-        'Bismark has two outputs (with bowtie2): *_bismark_bt2_pe.bam and *_bismark_bt2_PE_report.txt'
+if len(snakemake.output) != 2:
+    if len(fastq) == 1:
+        raise RuleOutputException('Bismark has two outputs (with bowtie2): *_bismark_bt2.bam and *_bismark_bt2_SE_report.txt')
+    else:
+        raise RuleOutputException('Bismark has two outputs (with bowtie2): *_bismark_bt2_pe.bam and *_bismark_bt2_PE_report.txt')
 
 output_directory = path.dirname(snakemake.output[0])
 

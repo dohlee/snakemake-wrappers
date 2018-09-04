@@ -4,7 +4,6 @@ __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
 
-import rpy2.robjects as ro
 from rpy2.robjects import r
 import pandas as pd
 import cleanlog
