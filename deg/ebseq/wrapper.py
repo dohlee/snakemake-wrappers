@@ -10,8 +10,6 @@ import pandas as pd
 import cleanlog
 import warnings
 
-from os import path
-from snakemake.shell import shell
 from rpy2.robjects import pandas2ri
 from rpy2.robjects.packages import importr
 from rpy2.rinterface import RRuntimeError

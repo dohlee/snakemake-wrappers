@@ -4,8 +4,6 @@ __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
 
-from os import path
-
 from snakemake.shell import shell
 
 # Extract log.

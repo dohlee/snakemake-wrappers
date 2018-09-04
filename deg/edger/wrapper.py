@@ -4,14 +4,11 @@ __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
 
-import rpy2.robjects as ro
 from rpy2.robjects import r
 import pandas as pd
 import cleanlog
 import warnings
 
-from os import path
-from snakemake.shell import shell
 from rpy2.robjects import pandas2ri
 from rpy2.robjects import Formula
 from rpy2.robjects.packages import importr

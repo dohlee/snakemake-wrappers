@@ -5,7 +5,6 @@ __license__ = "MIT"
 
 import itertools
 
-from os import path
 from snakemake.shell import shell
 
 

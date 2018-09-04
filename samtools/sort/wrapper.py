@@ -15,9 +15,9 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 extra = snakemake.params.get('extra', '')
 
 # Extract required arguments.
-input = snakemake.input[0]
-output = snakemake.output[0]
-prefix = path.splitext(output)[0]
+bam = snakemake.input[0]
+sorted_bam = snakemake.output[0]
+prefix = path.splitext(sorted_bam)[0]
 
 # Execute shell command.
 shell(
@@ -25,9 +25,9 @@ shell(
     "samtools sort "
     "{extra} "
     "-@ {snakemake.threads} "
-    "-o {output} "
+    "-o {sorted_bam} "
     "-T {prefix} "
-    "{input}"
+    "{bam}"
     ") "
     "{log}"
 )
