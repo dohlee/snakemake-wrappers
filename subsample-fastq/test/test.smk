@@ -2,7 +2,7 @@ from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 HTTP = HTTPRemoteProvider()
 
 rule all:
-    input: 'test.subsampled.fastq.gz', 'test.subsampled.fastq'
+    input: 'test.subsampled.fastq.gz', 'test1.subsampled.fastq'
 
 rule download_data:
     input: HTTP.remote('sgp1.digitaloceanspaces.com/dohlee-bioinfo/test-data/rna-seq/se/test.fastq.gz')
@@ -10,9 +10,9 @@ rule download_data:
     shell: 'mv {input} {output}'
 
 rule gunzip:
-    input: '{file}.gz'
-    output: '{file}'
-    shell: 'gunzip {input}'
+    input: 'test.fastq.gz'
+    output: 'test1.fastq'
+    shell: 'gunzip -c {input} > {output}'
 
 rule subsample_fastq_gzipped_se:
     input:
@@ -31,9 +31,9 @@ rule subsample_fastq_gzipped_se:
 rule subsample_fastq_se:
     input:
         # Required input.
-        reads = ['test.fastq']
+        reads = ['test1.fastq']
     output:
-        'test.subsampled.fastq',
+        'test1.subsampled.fastq',
     threads: 1  # No more than 1 threads will be used.
     params:
         # Required parameters.
