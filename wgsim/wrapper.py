@@ -9,7 +9,7 @@ from snakemake.shell import shell
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
-def optionify_params(parameter, option):
+def optionify_params(parameter, option, default=None):
     """Return optionified parameter."""
     try:
         param = str(snakemake.params[parameter])
@@ -38,7 +38,12 @@ reference = snakemake.input[0]
 # Extract required outputs.
 if len(snakemake.output) > 2:
     raise RuleOutputException('Simulated output should be single-read or paired-end.')
+is_single_end = len(snakemake.output) == 1
 output = snakemake.output
+
+pair = ''
+if is_single_end:
+    pair = '/dev/null'
 
 # Extract parameters.
 random_seed = optionify_params('random_seed', '-S')
@@ -46,6 +51,8 @@ N = optionify_params('N', '-N')
 error_rate = optionify_params('error_rate', '-e')
 mutation_rate = optionify_params('mutation_rate', '-r')
 read_distance = optionify_params('read_distance', '-d')
+if is_single_end:
+    read_distance = '-d 0'
 standard_deviation = optionify_params('standard_deviation', '-s')
 read1_length = optionify_params('read1_length', '-1')
 read2_length = optionify_params('read2_length', '-2')
@@ -74,6 +81,6 @@ shell(
     "{haplotype_mode} "
     "{extra} "
     "{reference} "
-    "{output}) "
+    "{output} {pair}) "
     "{log}"
 )
