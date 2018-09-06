@@ -23,6 +23,7 @@ fastq = snakemake.input.fastq
 fastq = [fastq] if isinstance(fastq, str) else fastq
 if len(fastq) > 2:
     raise RuleInputException('Your sequencing read should be single-read or paired-end.')
+single_flag = '' if len(fastq) == 2 else '--single'
 fastq = ' '.join(fastq)
 
 index = snakemake.input.index
@@ -37,6 +38,7 @@ shell(
     "-i {index} "
     "-o {output_directory} "
     "-t {threads} "
+    "{single_flag} "
     "{extra} "
     "{fastq}"
     ")"
