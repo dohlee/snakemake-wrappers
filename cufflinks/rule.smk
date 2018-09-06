@@ -7,7 +7,7 @@ rule cufflinks:
     output:
         # Required output.
         'result/{sample}/transcripts.gtf',
-        'result/{sample}/genes.fpkm_tracking.',
+        'result/{sample}/genes.fpkm_tracking',
         'result/{sample}/isoforms.fpkm_tracking'
     params:
         # Optional parameters. Omit if unneeded.
