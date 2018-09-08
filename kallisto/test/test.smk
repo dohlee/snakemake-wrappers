@@ -40,6 +40,8 @@ rule kallisto_quant:
         'result/{sample}/abundance.h5',
         'result/{sample}/run_info.json'
     params:
+        fragment_length = 75.0,
+        standard_deviation = 10.0,
         # Optional parameters. It omitted, default value will be used.
         extra = '',
     threads: 1
