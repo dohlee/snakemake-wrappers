@@ -1,4 +1,4 @@
 channels:
   - bioconda
 dependencies:
-  - parallel-fastq-dump=0.6.3
+  - kallisto=0.44.0
