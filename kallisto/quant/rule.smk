@@ -1,7 +1,7 @@
 rule kallisto_quant:
     input:
         # Required input.
-        index = 'reference/Homo_sapiens.GRCh38.genome.kallisto_idx',
+        index = 'reference/Homo_sapiens.GRCh38.transcriptome.kallisto_idx',
         fastq = ['data/{sample}.read1.fastq.gz', 'data/{sample}.read2.fastq.gz']
     output:
         # Required output.
