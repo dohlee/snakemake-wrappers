@@ -23,8 +23,8 @@ jobs:
           echo "  - defaults" >> $HOME/.condarc
           echo "always_yes: true" >> $HOME/.condarc
           cat $HOME/.condarc
-      # Install snakemake.
-      - run: conda install snakemake
+      # Install snakemake and other dependencies.
+      - run: conda install snakemake ftputil
       # List up available tests.
       - run: find . -name "test.smk" > $HOME/tests.list
       # Run tests.
