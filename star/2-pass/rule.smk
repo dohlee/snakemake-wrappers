@@ -5,7 +5,7 @@ rule star_2_pass:
         star_index = directory('reference/star_index')
     output:
         # There is no need to output sam or unsorted bam file!
-        # So this wrapper includes '--outSAMtype BAM Unsorted' option by default.
+        # So this wrapper includes '--outSAMtype BAM SortedByCoordinate' option by default.
         'result/{sample}/{sample}.sorted.bam'
     threads: 1
     params:
