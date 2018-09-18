@@ -1,4 +1,4 @@
-rule strelka:
+rule strelka_tumor_normal:
     input:
         # Required input.
         tumor = '{tumor_sample}.bam',
@@ -15,4 +15,4 @@ rule strelka:
         call_regions = '',  # Here goes a predefined bed file.
     threads: 4
     wrapper:
-        'http://dohlee-bio.info:9193/strelka'
+        'http://dohlee-bio.info:9193/strelka/tumor-normal'
