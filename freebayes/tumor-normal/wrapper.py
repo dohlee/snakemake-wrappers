@@ -16,14 +16,14 @@ def is_defined_by_user(*params):
 def optionify_input(parameter, option):
     """Return optionified parameter."""
     try:
-        return option + ' ' + snakemake.input[parameter]
+        return option + ' ' + str(snakemake.input[parameter])
     except AttributeError:
         return ''
 
 def optionify_params(parameter, option):
     """Return optionified parameter."""
     try:
-        return option + ' ' + snakemake.params[parameter]
+        return option + ' ' + str(snakemake.params[parameter])
     except AttributeError:
         return ''
 
