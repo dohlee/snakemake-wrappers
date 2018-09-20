@@ -61,7 +61,7 @@ if not is_defined_by_user('--min-repeat-entropy'):
     wrapper_parameters.append('--min-repeat-entropy 1')
 if not is_defined_by_user('--no-partial-observations'):
     wrapper_parameters.append('--no-partial-observations')
-wrapper_options = ' '.join(wrapper_parameters)
+wrapper_parameters = ' '.join(wrapper_parameters)
 
 # Input bams option.
 bams_option = '--bam %s --bam %s' % (tumor_bam, normal_bam)

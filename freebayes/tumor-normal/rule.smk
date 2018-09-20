@@ -6,7 +6,7 @@ rule freebayes_tumor_normal:
         reference = 'reference/Homo_sapiens_assembly38.fasta'
     output:
         # Required output.
-        'result/{tumor_sample}/{tumor_sample}_vs_{normal_sample}.vcf'
+        'result/{tumor_sample}/{tumor_sample}_vs_{normal_sample}.freebayes.vcf'
     params:
         # Optional arguments. Omit if unneeded.
         extra = '',
