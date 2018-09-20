@@ -1,4 +1,4 @@
-rule strelka_tumor_normal:
+rule varscan_somatic:
     input:
         # Required input.
         tumor_bam = '{tumor_sample}.bam',
@@ -17,7 +17,7 @@ rule strelka_tumor_normal:
         min_var_freq = 0.03,  # Recommended.
         # If set to 1, removes variants with >90% strand bias.
         strand_filter = 1,  # Recommended.
-        pileup_quality_cutoff = 20,  # Recommended.
+        pileup_quality_cutoff = 20,  # Recommended. (default 20)
     threads: 4
     wrapper:
         'http://dohlee-bio.info:9193/varscan/somatic'
