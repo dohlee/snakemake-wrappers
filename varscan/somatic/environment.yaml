@@ -1,0 +1,5 @@
+channels:
+  - bioconda
+dependencies:
+  - varscan=2.4.3
+  - sambamba=0.6.6
