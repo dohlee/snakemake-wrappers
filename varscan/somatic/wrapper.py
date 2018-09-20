@@ -13,17 +13,10 @@ def is_defined_by_user(*params):
             return True
     return False
 
-def optionify_input(parameter, option):
-    """Return optionified parameter."""
-    try:
-        return option + ' ' + snakemake.input[parameter]
-    except AttributeError:
-        return ''
-
 def optionify_params(parameter, option):
     """Return optionified parameter."""
     try:
-        return option + ' ' + snakemake.params[parameter]
+        return option + ' ' + str(snakemake.params[parameter])
     except AttributeError:
         return ''
 
@@ -47,8 +40,8 @@ output_prefix = snv_output[:-17]
 
 # Extract optional parameters.
 user_parameters = []
-user_parameters.append(optionify_params(min_var_freq, '--min-var-freq'))
-user_parameters.append(optionify_params(strand_filter, '--strand-filter'))
+user_parameters.append(optionify_params('min_var_freq', '--min-var-freq'))
+user_parameters.append(optionify_params('strand_filter', '--strand-filter'))
 user_parameters = ' '.join(user_parameters)
 
 wrapper_parameters = []
@@ -62,8 +55,8 @@ wrapper_parameters = ' '.join(wrapper_parameters)
 
 # Pileup commands.
 q_cutoff = snakemake.params.get('pileup_quality_cutoff', 20)
-normal_pileup_command = 'sambamba mpileup -q %d -f %s %s' % (q_cutoff, reference, normal_bam)
-tumor_pileup_command = 'sambamba mpileup -q %d -f %s %s' % (q_cutoff, reference, tumor_bam)
+normal_pileup_command = 'samtools mpileup -q %d -f %s %s' % (q_cutoff, reference, normal_bam)
+tumor_pileup_command = 'samtools mpileup -q %d -f %s %s' % (q_cutoff, reference, tumor_bam)
 
 # Execute shell command.
 shell(
