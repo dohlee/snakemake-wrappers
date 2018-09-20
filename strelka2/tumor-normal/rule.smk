@@ -1,9 +1,10 @@
-rule strelka_tumor_normal:
+rule strelka2_tumor_normal:
     input:
         # Required input.
         tumor = '{tumor_sample}.bam',
         normal = '{normal_sample}.bam',
-        reference = 'reference/Homo_sapiens_assembly38.fasta'
+        reference = 'reference/Homo_sapiens_assembly38.fasta',
+        reference_index = 'reference/Homo_sapiens_assembly38.fasta.fai'
     output:
         # Required output.
         snv = 'result/{tumor_sample}/{tumor_sample}_vs_{normal_sample}.snvs.strelka.vcf.gz',
@@ -15,4 +16,4 @@ rule strelka_tumor_normal:
         call_regions = '',  # Here goes a predefined bed file.
     threads: 4
     wrapper:
-        'http://dohlee-bio.info:9193/strelka/tumor-normal'
+        'http://dohlee-bio.info:9193/strelka2/tumor-normal'
