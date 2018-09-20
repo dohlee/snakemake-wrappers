@@ -14,6 +14,6 @@ rule freebayes_tumor_normal:
         min_alternate_count = 2,  # Recommended.
         cnv_map = '',
     threads: 4
-    logs: 'logs/freebayes_tumor_normal/{tumor_sample}_vs_{normal_sample}.log'
+    log: 'logs/freebayes_tumor_normal/{tumor_sample}_vs_{normal_sample}.log'
     wrapper:
         'http://dohlee-bio.info:9193/freebayes/tumor-normal'
