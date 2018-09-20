@@ -1,8 +1,8 @@
 rule varscan_somatic:
     input:
         # Required input.
-        tumor_bam = '{tumor_sample}.bam',
-        normal_bam = '{normal_sample}.bam',
+        tumor_bam = '{tumor_sample}.sorted.bam',
+        normal_bam = '{normal_sample}.sorted.bam',
         reference = 'reference/Homo_sapiens_assembly38.fasta'
     output:
         # Required output.
