@@ -76,7 +76,7 @@ chunksize = snakemake.params.get('chunksize', 100000)
 if snakemake.threads == 1:
     freebayes = 'freebayes'
 else:
-    freebayes = 'freebayes-parallel <(fasta_generate_regions.py %s.fai %d %d)' % (reference, chunksize, snakemake.threads)
+    freebayes = 'freebayes-parallel <(fasta_generate_regions.py %s.fai %d) %d' % (reference, chunksize, snakemake.threads)
 
 # Execute shell command.
 shell(
