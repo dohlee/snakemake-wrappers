@@ -1,8 +1,10 @@
 rule strelka2_tumor_normal:
     input:
         # Required input.
-        tumor = '{tumor_sample}.bam',
-        normal = '{normal_sample}.bam',
+        tumor = '{tumor_sample}.sorted.bam',
+        tumor_index = '{tumor_sample}.sorted.bam.bai',
+        normal = '{normal_sample}.sorted.bam',
+        normal_index = '{normal_sample}.sorted.bam.bai',
         reference = 'reference/Homo_sapiens_assembly38.fasta',
         reference_index = 'reference/Homo_sapiens_assembly38.fasta.fai'
     output:
