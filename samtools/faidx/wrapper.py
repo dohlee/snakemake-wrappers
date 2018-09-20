@@ -20,7 +20,7 @@ fasta = snakemake.input[0]
 # Execute shell command.
 shell(
     "("
-    "samtools faidx {input}"
+    "samtools faidx {fasta}"
     ") "
     "{log}"
 )

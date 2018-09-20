@@ -4,4 +4,4 @@ rule samtools_faidx:
     output:
         '{file}.fasta.fai'
     wrapper:
-        'http://dohlee-bio.info:9194/samtools/faidx'
+        'http://dohlee-bio.info:9193/samtools/faidx'
