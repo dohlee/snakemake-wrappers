@@ -3,7 +3,8 @@ rule freebayes_tumor_normal:
         # Required input.
         tumor_bam = '{tumor_sample}.sorted.bam',
         normal_bam = '{normal_sample}.sorted.bam',
-        reference = 'reference/Homo_sapiens_assembly38.fasta'
+        reference = 'reference/Homo_sapiens_assembly38.fasta',
+        reference_index = 'reference/Homo_sapiens_assembly38.fasta.fai'
     output:
         # Required output.
         'result/{tumor_sample}/{tumor_sample}_vs_{normal_sample}.freebayes.vcf'
