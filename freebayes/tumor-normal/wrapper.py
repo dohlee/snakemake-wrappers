@@ -61,6 +61,10 @@ if not is_defined_by_user('--min-repeat-entropy'):
     wrapper_parameters.append('--min-repeat-entropy 1')
 if not is_defined_by_user('--no-partial-observations'):
     wrapper_parameters.append('--no-partial-observations')
+if not is_defined_by_user('--use-best-n-alleles'):
+    # Refer to https://github.com/ekg/freebayes#performance-tuning.
+    # Use this option to reduce running time.
+    wrapper_parameters.append('--use-best-n-alleles 4')
 wrapper_parameters = ' '.join(wrapper_parameters)
 
 # Input bams option.
