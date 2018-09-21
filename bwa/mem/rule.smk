@@ -1,6 +1,6 @@
 rule bwa_mem:
     input:
-        # Required input. Reference genome fasta file.
+        # Required input. Input read file.
         reads = ['{sample}.read1.fastq.gz'],
         mates = ['{sample}.read2.fastq.gz'],
         # You may use any of {genome}.amb, {genome}.ann, {genome}.bwt,

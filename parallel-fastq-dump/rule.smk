@@ -20,7 +20,8 @@ rule parallel_fastq_dump_paired:
     output:
         # Required output.
         '{sample}.read1.fastq.gz',
-        '{sample}.read2.fastq.gz'
+        '{sample}.read2.fastq.gz',
+        temp('{sample}_pass.fastq.gz')
     params:
         # Optional parameters. Omit if unused.
         extra = ''
