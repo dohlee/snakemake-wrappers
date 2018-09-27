@@ -16,20 +16,20 @@
 
 ### Variant calling
 - freebayes
+- somatic-sniper
+- varscan
+- strelka2
+
+### Variant annotation
+- snpeff
 
 ### File format handlers
 - sambamba
-  - index
-  - sort
-  - markdup
 - samtools
-  - index
-  - sort
 
 ### Data retrieval
 - sra-tools
   - prefetch
-    - accession
 - parallel-fastq-dump
 
 ### Preprocessing
@@ -38,21 +38,28 @@
 - fastp
 
 ### Aligner
+- bwa
+
+### Splice-aware aligner
+- hisat2
+- star
+
+### Bisulfite-aligner
+- bwa-meth
 - bismark
-  - genome-preparation
 - bsmap
+
+### Bisulfite-seq postprocessing
+- methyldackel
 
 ### Gene expression quantification
 - rsem
-  - calculate-expression
-    - pe
-  - prepare-reference
+- feature-counts
+- htseq
 - kallisto
-  - index
-  - quant
+- cufflinks
 - salmon
-  - index
-  - quant
 
 ### Misc
 - subsample-fastq
+- wgsim
