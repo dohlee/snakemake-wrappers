@@ -45,6 +45,11 @@ user_parameters = ' '.join(user_parameters)
 wrapper_parameters = []
 if not is_defined_by_user('-F'):
     wrapper_parameters.append('-F vcf')
+# This is recommended options from official somatic-sniper manual.
+if not is_defined_by_user('-G'):
+    wrapper_parameters.append('G')
+if not is_defined_by_user('-L'):
+    wrapper_parameters.append('-L')
 wrapper_parameters = ' '.join(wrapper_parameters)
 
 # Execute shell command.
