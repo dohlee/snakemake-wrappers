@@ -8,58 +8,47 @@
 
 <h2 align="center">Available wrappers</h2>
 
-### Routine analysis
-- DEG discovery
-  - DESeq2
-  - EBSeq
-  - edgeR
-
-### Variant calling
-- freebayes
-- somatic-sniper
-- varscan
-- strelka2
-
-### Variant annotation
-- snpeff
-
-### File format handlers
-- sambamba
-- samtools
-
-### Data retrieval
-- sra-tools
-  - prefetch
-- parallel-fastq-dump
-
-### Preprocessing
-- fastqc
-- trim-galore
-- fastp
-
-### Aligner
-- bwa
-
-### Splice-aware aligner
-- hisat2
-- star
-
-### Bisulfite-aligner
-- bwa-meth
-- bismark
-- bsmap
-
-### Bisulfite-seq postprocessing
-- methyldackel
-
-### Gene expression quantification
-- rsem
-- feature-counts
-- htseq
-- kallisto
-- cufflinks
-- salmon
-
-### Misc
-- subsample-fastq
-- wgsim
+- Routine analysis
+  - DEG discovery
+    - DESeq2
+    - EBSeq
+    - edgeR
+- Gene expression quantification
+  - rsem
+  - feature-counts
+  - htseq
+  - kallisto
+  - cufflinks
+  - salmon
+- Variant calling
+  - freebayes
+  - somatic-sniper
+  - varscan
+  - strelka2
+- Variant annotation
+  - snpeff
+- Alignment manipulation
+  - sambamba
+  - samtools
+- Data retrieval
+  - sra-tools
+    - prefetch
+  - parallel-fastq-dump
+- Preprocessing
+  - fastqc
+  - trim-galore
+  - fastp
+- Aligner
+  - bwa
+- Splice-aware aligner
+  - hisat2
+  - star
+- Bisulfite-aligner
+  - bwa-meth
+  - bismark
+  - bsmap
+- Bisulfite-seq postprocessing
+  - methyldackel
+- Misc
+  - subsample-fastq
+  - wgsim
