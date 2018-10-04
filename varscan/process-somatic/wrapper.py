@@ -40,9 +40,9 @@ user_parameters = ' '.join(user_parameters)
 shell(
     "("
     "varscan processSomatic "
+    "{input_vcf} "
     "{extra} "
     "{user_parameters} "
-    "{input_vcf} "
     ") "
     "{log}"
 )
