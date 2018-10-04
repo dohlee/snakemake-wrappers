@@ -5,6 +5,7 @@ __license__ = "MIT"
 
 import sys
 import time
+import uuid
 from os import path
 
 from snakemake.shell import shell
@@ -25,7 +26,7 @@ extra += optionify_params('region', '--region')
 extra += optionify_params('call_regions', '--callRegions')
 
 # Generate a name of temporary working directory.
-run_directory = 'strelka_tmp_%d' % int(time.time() * 100)
+run_directory = 'strelka_tmp_%s' % uuid.uuid4()
 
 # Extract required input arguments.
 reference = snakemake.input.reference
