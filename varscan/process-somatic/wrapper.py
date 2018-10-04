@@ -36,22 +36,12 @@ user_parameters.append(optionify_params('max_normal_freq', '--max-normal-freq'))
 user_parameters.append(optionify_params('p_value', '--p-value'))
 user_parameters = ' '.join(user_parameters)
 
-wrapper_parameters = []
-if not is_defined_by_user('--output-snp'):
-    wrapper_parameters.append('--output-snp %s.snvs.varscan.vcf' % output_prefix)
-if not is_defined_by_user('--output-indel'):
-    wrapper_parameters.append('--output-indel %s.indels.varscan.vcf' % output_prefix)
-if not is_defined_by_user('--output-vcf'):
-    wrapper_parameters.append('--output-vcf 1')
-wrapper_parameters = ' '.join(wrapper_parameters)
-
 # Execute shell command.
 shell(
     "("
     "varscan processSomatic "
     "{extra} "
     "{user_parameters} "
-    "{wrapper_parameters} "
     "{input_vcf} "
     ") "
     "{log}"
