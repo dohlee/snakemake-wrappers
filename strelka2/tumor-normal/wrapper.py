@@ -52,6 +52,7 @@ clean_command = 'rm -r ' + run_directory
 shell(
     "("
     "{configure_command} && "
+    "sleep 3 && "
     "{execution_command} && "
     "{move_command} && "
     "{clean_command}"
