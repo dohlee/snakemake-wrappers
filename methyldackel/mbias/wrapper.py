@@ -19,7 +19,7 @@ def is_defined_by_user(*params):
 def optionify_params(parameter, option):
     """Return optionified parameter."""
     try:
-        return option + ' ' + snakemake.params[parameter]
+        return option + ' ' + str(snakemake.params[parameter])
     except AttributeError:
         return ''
 
@@ -38,8 +38,8 @@ output = snakemake.output[0]
 
 # Extract optional parameters.
 user_parameters = []
-user_parameters.append(optionify_params(mapping_quality_threshold, '-q'))
-user_parameters.append(optionify_params(sequencing_quality_threshold, '-p'))
+user_parameters.append(optionify_params('mapping_quality_threshold', '-q'))
+user_parameters.append(optionify_params('sequencing_quality_threshold', '-p'))
 user_parameters = ' '.join(user_parameters)
 
 wrapper_parameters = []
