@@ -1,22 +1,32 @@
-rule bismark_single:
-    input:
-        fastq = 'data/{sample}.fastq.gz',
-        reference_dir = directory('reference/'),
-        bisulfite_genome_dir = directory('reference/Bisulfite_Genome')
-    output:
-        'result/{sample}/{sample}_bismark_bt2.bam',
-        'result/{sample}/{sample}_bismark_bt2_SE_report.txt'
-    threads: 6
-    wrapper:
-        'http://dohlee-bio.info:9193/bismark'
+def get_bismark_inputs(wildcards):
+    """Define your function to tell whether the sample is
+    single-ended or paired-ended.
+    """
+    raise NotImplementedError('Function get_bismark_inputs is not implemented.')
 
-rule bismark_paired:
-    input:
-        fastq = ['data/{sample}.read1.fastq', 'data/{sample}.read2.fastq'],
-        reference_dir = directory('reference/'),
-        bisulfite_genome_dir = directory('reference/Bisulfite_Genome')
+    # IMPLEMENT FUNCTION LIKE:
+    if is_paired(s):
+        return dict(
+            fastq = 'data/{sample}.trimmed.fastq.gz',
+            reference_dir = directory('reference/'),
+            bisulfite_genome_dir = directory('reference/Bisulfite_Genome'),
+        )
+    else:
+        return dict(
+            fastq = [
+                'data/{sample}.read1.trimmed.fastq',
+                'data/{sample}.read2.trimmed.fastq',
+            ],
+            reference_dir = directory('reference/'),
+            bisulfite_genome_dir = directory('refernce/Bisulfite_Genome'),
+        )
+
+
+rule bismark:
+    input: unpack(get_bismark_inputs)
     output:
-        'result/{sample}/{sample}_bismark_bt2_pe.bam',
-        'result/{sample}/{sample}_bismark_bt2_PE_report.txt'
+        'result/{sample}/{sample}.bismark.bam',
+        'result/{sample}/{sample}.bismark_report.txt'
+    threads: 6
     wrapper:
         'http://dohlee-bio.info:9193/bismark'

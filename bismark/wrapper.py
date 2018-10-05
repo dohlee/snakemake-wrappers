@@ -50,7 +50,7 @@ else:
 
 # NOTE:
 # Single-end Bismark call (with bowtie2) will produce two output files:
-# 1. {fastq-filename}_bismark_bt2_se.bam
+# 1. {fastq-filename}_bismark_bt2.bam
 # 2. {fastq-filename}_bismark_bt2_SE_report.txt
 # Paired-end Bismark call (with bowtie2) will produce two output files:
 # 1. {fastq-read1-filename}_bismark_bt2_pe.bam
@@ -65,6 +65,21 @@ if len(snakemake.output) != 2:
 
 output_directory = path.dirname(snakemake.output[0])
 
+# Rename bismark outputs into
+# 'result/{sample}/{sample}.bismark.bam',
+# 'result/{sample}/{sample}.bismark_report.txt'
+basename = output[0][:-12]
+if len(fastq) == 2:
+    # Paired-end case.
+    rename_command = '&& %s %s && %s %s' % (
+        basename + '_bismark_bt2_pe.bam', output[0], basename + '_bismark_bt2_PE_report.txt', output[1]
+    )
+else:
+    # Single-end case.
+    rename_command = '&& %s %s && %s %s' % (
+        basename + '_bismark_bt2.bam', output[0], basename + '_bismark_bt2_SE_report.txt', output[1]
+    )
+
 # Execute shell command.
 shell(
     "("
@@ -74,6 +89,7 @@ shell(
     "--multicore {threads} "
     "{reference_dir} "
     "{read_command} "
+    "{rename_command} "
     ")"
     "{log}"
 )
