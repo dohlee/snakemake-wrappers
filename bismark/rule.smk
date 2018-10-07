@@ -7,18 +7,18 @@ def get_bismark_inputs(wildcards):
     # IMPLEMENT FUNCTION LIKE:
     if is_paired(s):
         return dict(
-            fastq = 'data/{sample}.trimmed.fastq.gz',
-            reference_dir = directory('reference/'),
-            bisulfite_genome_dir = directory('reference/Bisulfite_Genome'),
+            fastq='data/{sample}.trimmed.fastq.gz',
+            reference_dir=directory('reference/'),
+            bisulfite_genome_dir=directory('reference/Bisulfite_Genome'),
         )
     else:
         return dict(
-            fastq = [
+            fastq=[
                 'data/{sample}.read1.trimmed.fastq',
                 'data/{sample}.read2.trimmed.fastq',
             ],
-            reference_dir = directory('reference/'),
-            bisulfite_genome_dir = directory('refernce/Bisulfite_Genome'),
+            reference_dir=directory('reference/'),
+            bisulfite_genome_dir=directory('refernce/Bisulfite_Genome'),
         )
 
 
