@@ -7,7 +7,7 @@ import os.path as path
 from snakemake.shell import shell
 
 # Extract log.
-log = snakemake.log_fmt_shell(stdout=False, stderr=True)
+log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 
 # Define exception classes.
 class GenomePreparationNotCompletedException(Exception):
