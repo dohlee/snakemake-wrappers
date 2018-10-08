@@ -68,16 +68,22 @@ output_directory = path.dirname(snakemake.output[0])
 # Rename bismark outputs into
 # 'result/{sample}/{sample}.bismark.bam',
 # 'result/{sample}/{sample}.bismark_report.txt'
-basename = fastq[0][:-9] if fastq[0].endswith('.gz') else fastq[0][:-6]
+basename = path.basename(fastq[0])[:-9] if fastq[0].endswith('.gz') else path.basename(fastq[0])[:-6]
 if len(fastq) == 2:
     # Paired-end case.
     rename_command = '&& mv %s %s && mv %s %s' % (
-        basename + '_bismark_bt2_pe.bam', snakemake.output[0], basename + '_bismark_bt2_PE_report.txt', snakemake.output[1]
+        path.join(output_directory, basename + '_bismark_bt2_pe.bam'),
+        snakemake.output[0],
+        path.join(output_directory, basename + '_bismark_bt2_PE_report.txt'),
+        snakemake.output[1],
     )
 else:
     # Single-end case.
     rename_command = '&& mv %s %s && mv %s %s' % (
-        basename + '_bismark_bt2.bam', snakemake.output[0], basename + '_bismark_bt2_SE_report.txt', snakemake.output[1]
+        path.join(output_directory, basename + '_bismark_bt2.bam'),
+        snakemake.output[0],
+        path.join(output_directory, basename + '_bismark_bt2_SE_report.txt'),
+        snakemake.output[1],
     )
 
 # Execute shell command.
