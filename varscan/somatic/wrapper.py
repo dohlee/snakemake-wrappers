@@ -55,8 +55,9 @@ wrapper_parameters = ' '.join(wrapper_parameters)
 
 # Pileup commands.
 q_cutoff = snakemake.params.get('pileup_quality_cutoff', 20)
-normal_pileup_command = 'samtools mpileup -q %d -f %s %s' % (q_cutoff, reference, normal_bam)
-tumor_pileup_command = 'samtools mpileup -q %d -f %s %s' % (q_cutoff, reference, tumor_bam)
+region_option = optionify_params('region', '-r')
+normal_pileup_command = 'samtools mpileup -q %d -f %s %s %s' % (q_cutoff, reference, region_option, normal_bam)
+tumor_pileup_command = 'samtools mpileup -q %d -f %s %s %s' % (q_cutoff, reference, region_option, tumor_bam)
 
 # Execute shell command.
 shell(
