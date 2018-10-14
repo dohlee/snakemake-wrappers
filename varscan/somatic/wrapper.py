@@ -36,7 +36,7 @@ snv_output = snakemake.output.snv
 indel_output = snakemake.output.indel
 
 # TODO: Fixme!
-output_prefix = snv_output[:-17]
+output_prefix = snv_output[snv_output.find('.snvs.varscan'):]
 
 # Extract optional parameters.
 user_parameters = []
@@ -46,9 +46,9 @@ user_parameters = ' '.join(user_parameters)
 
 wrapper_parameters = []
 if not is_defined_by_user('--output-snp'):
-    wrapper_parameters.append('--output-snp %s.snvs.varscan.vcf' % output_prefix)
+    wrapper_parameters.append('--output-snp %s' % snv_output)
 if not is_defined_by_user('--output-indel'):
-    wrapper_parameters.append('--output-indel %s.indels.varscan.vcf' % output_prefix)
+    wrapper_parameters.append('--output-indel %s' % indel_output)
 if not is_defined_by_user('--output-vcf'):
     wrapper_parameters.append('--output-vcf 1')
 wrapper_parameters = ' '.join(wrapper_parameters)
