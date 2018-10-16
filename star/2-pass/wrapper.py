@@ -45,9 +45,9 @@ output_prefix = output_sorted_bam[:-10]  # Strip tailing 'sorted.bam'.
 # Extract parameters.
 # Extract optional parameters.
 extra = snakemake.params.get('extra', '')
-# If gzipped reads are given, but user did not specify readFileCommand option,
+# If gzipped reads are given, but user did not specify readFilesCommand option,
 # kindly add the option.
-read_files_command = ''
+read_files_command = '--readFilesCommand cat'
 if reads[0].endswith('.gz') and '--readFilesCommand' not in extra:
     read_files_command = '--readFilesCommand zcat'
 sjdb_gtf_file = optionify_params('sjdb_gtf_file', '--sjdbGTFfile')
@@ -63,6 +63,7 @@ shell(
     "("
     "STAR "
     "--runMode alignReads "
+    "--twopassmode Basic "
     "--runThreadN {snakemake.threads} "
     "--readFilesIn {reads} "
     "--genomeDir {star_index} "
