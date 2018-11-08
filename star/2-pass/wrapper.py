@@ -63,7 +63,7 @@ shell(
     "("
     "STAR "
     "--runMode alignReads "
-    "--twopassmode Basic "
+    "--twopassMode Basic "
     "--runThreadN {snakemake.threads} "
     "--readFilesIn {reads} "
     "--genomeDir {star_index} "

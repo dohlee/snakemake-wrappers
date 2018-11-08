@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2018, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
-
+import os
 from snakemake.shell import shell
 
 # Extract log.
@@ -41,6 +41,10 @@ assert not reference.endswith('.gz'), 'To use STAR, reference genome should be u
 # Extract required outputs.
 index_directory = snakemake.output.index_directory
 
+mkdir_command = ''
+if not os.path.exists(index_directory):
+    mkdir_command = 'mkdir %s &&' % index_directory
+
 # Extract parameters.
 # Extract optional parameters.
 extra = snakemake.params.get('extra', '')
@@ -52,6 +56,7 @@ sjdb_gtf_tag_exon_parent_transcript = optionify_params('sjdb_gtf_tag_exon_parent
 # Execute shell command.
 shell(
     "("
+    "{mkdir_command} "
     "STAR "
     "--runMode genomeGenerate "
     "--runThreadN {snakemake.threads} "

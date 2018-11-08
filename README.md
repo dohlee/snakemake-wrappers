@@ -23,10 +23,14 @@
 - Variant calling
   - freebayes
   - somatic-sniper
-  - varscan
+  - varscan/somatic
   - strelka2
 - Variant annotation
   - snpeff
+- Copy number analysis
+  - varscan/copynumber
+  - varscan/copycaller
+  - dnacopy/cbs-segmentation
 - Alignment manipulation
   - sambamba
   - samtools
