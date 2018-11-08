@@ -50,7 +50,7 @@ user_parameters = ' '.join(user_parameters)
 shell(
     "("
     "{pipe_command} "
-    "varscan copynumber "
+    "varscan copynumber - "
     "{output_prefix} "
     "--mpileup 1 "
     "{extra} "
