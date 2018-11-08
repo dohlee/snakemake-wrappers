@@ -50,10 +50,7 @@ if len(snakemake.input) == 2:
     raw_read2_file = path.join(output_directory, '%s.read2_val_2.fq.gz' % sample_name)
     renamed_read2_file = path.join(output_directory, '%s.read2.trimmed.fastq.gz' % sample_name)
 
-    rename_command = '&& mv %s %s ' \
-                     '&& mv %s %s ' %\
-                     (raw_read1_file, renamed_read1_file,
-                      raw_read2_file, renamed_read2_file)
+    rename_command = f'&& sleep 5 && mv {raw_read1_file} {renamed_read1_file} && mv {raw_read2_file} {renamed_read2_file}'
 
 # NOTE: For single-end case, we rename *_trimmed.fastq.gz into *.trimmed.fastq.gz.
 else:
