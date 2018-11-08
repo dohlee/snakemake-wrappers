@@ -6,8 +6,6 @@ rule varscan_copynumber:
         reference = 'reference/Homo_sapiens_assembly38.fasta'
     output:
         # Required output.
-        # NOTE: Varscan can output variants in its own format such as output.snp, output.indel,
-        # however, this wrapper forces VCF output for unity of variant calling pipelines.
         raw_copynumber_calls = 'result/{tumor_sample}/{tumor_sample}_vs_{normal_sample}.copynumber'
     params:
         # Optional parameters. Omit if unneeded.

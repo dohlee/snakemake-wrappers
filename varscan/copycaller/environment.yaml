@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - varscan=2.4.3
