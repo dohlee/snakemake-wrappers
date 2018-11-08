@@ -30,9 +30,10 @@ extra = snakemake.params.get('extra', '')
 tumor_bam = snakemake.input.tumor_bam
 normal_bam = snakemake.input.normal_bam
 reference = snakemake.input.reference
+output_prefix = snakemake.params.output_prefix
 
 q_cutoff = snakemake.params.get('pileup_quality_cutoff', 1)
-pipe_command = f'samtools mpileup -q {q_cutoff} -f {reference} {normal_bam} {tumor_bam}'
+pipe_command = f'samtools mpileup -q {q_cutoff} -f {reference} {normal_bam} {tumor_bam} |'
 
 # Extract optional parameters.
 user_parameters = []
@@ -48,7 +49,9 @@ user_parameters = ' '.join(user_parameters)
 # Execute shell command.
 shell(
     "("
+    "{pipe_command} "
     "varscan copynumber "
+    "{output_prefix} "
     "--mpileup 1 "
     "{extra} "
     "{user_parameters} "
