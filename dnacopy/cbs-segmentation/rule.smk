@@ -7,5 +7,5 @@ rule dnacopy_cbs_segmentation:
         # Optional parameters. Omit if unneeded.
         extra = '',
     threads: 1
-    wrapper:
-        'http://dohlee-bio.info:9193/dnacopy/cbs-segmentation'
+    script:
+        'http://dohlee-bio.info:9193/dnacopy/cbs-segmentation/wrapper.R'
