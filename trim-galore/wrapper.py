@@ -77,7 +77,6 @@ shell(
     "{extra} "
     "{read_command} "
     "{output_directory_option} "
-    "{extra} "
     "{rename_command}"
     ")"
     "{log} "
