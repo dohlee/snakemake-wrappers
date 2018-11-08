@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - bioconductor-dnacopy=1.54.0
