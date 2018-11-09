@@ -8,9 +8,9 @@
 
 library(DNAcopy)
 
-cn <- read.table(snakemake@input[["copynumber_calls"]])
-CNA.object <-CNA(genomdat = cn[,6], chrom = cn[,1], maploc = cn[,2], data.type = 'logratio')
+cn <- read.table(snakemake@input[["copynumber_calls"]], header=TRUE)
+CNA.object <-CNA(genomdat=cn[,7], chrom=cn[,1], maploc=cn[,2], data.type='logratio')
 CNA.smoothed <- smooth.CNA(CNA.object)
-segs <- segment(CNA.smoothed, verbose=0, min.width=2)
-segs2 = segs$output
-write.table(segs2[,2:6], file=snakemake@output[["segments"]], row.names=F, col.names=F, quote=F, sep="\t")
+segs <- segment(CNA.smoothed, verbose=0, alpha=0.01, nperm=10000, min.width=2, undo.splits="sdundo", undo.SD=3)
+psegs <- segments.p(segs)
+write.table(psegs, file=snakemake@output[["segments"]], row.names=FALSE, col.names=TRUE, quote=FALSE, sep="\t")
