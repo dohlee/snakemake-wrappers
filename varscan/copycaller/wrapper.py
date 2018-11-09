@@ -49,6 +49,7 @@ user_parameters = ' '.join(user_parameters)
 shell(
     "("
     "varscan copyCaller "
+    "{raw_copynumber_calls} "
     "--output-file {copynumber_calls} "
     "--output-homdel-file {homdel} "
     "{extra} "

@@ -23,9 +23,9 @@ rule varscan_copycaller:
         # Minimum size (in bases) for a region to be counted [10]
         min_region_size = 10,
         # Recenter data around an adjusted baseline > 0 [0]
-        recenter_up = 0
+        recenter_up = 0,
         # Recenter data around an adjusted baseline < 0 [0]
-        recenter_down = 0
+        recenter_down = 0,
     threads: 1
     wrapper:
         'http://dohlee-bio.info:9193/varscan/copycaller'
