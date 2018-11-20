@@ -23,7 +23,6 @@ shell(
     "{extra} "
     "-t {snakemake.threads} "
     "-o {sorted_bam} "
-    "-p "
     "{bam}"
     ") "
     "{log}"

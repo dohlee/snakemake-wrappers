@@ -22,7 +22,6 @@ shell(
     "sambamba index "
     "{extra} "
     "-t {snakemake.threads} "
-    "-p "
     "{sorted_bam} "
     "{indexed_bam} "
     ") "
