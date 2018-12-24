@@ -33,8 +33,8 @@ target_coverage = snakemake.input.target_coverage
 antitarget_coverage = snakemake.input.antitarget_coverage
 reference = snakemake.input.reference
 
-# Extract required outputs.
-output_reference = snakemake.output.output_reference
+# Extract required output.
+output = snakemake.output[0]
 
 # Extract optional parameters.
 user_parameters = []
@@ -43,11 +43,11 @@ user_parameters = ' '.join(user_parameters)
 # Execute shell command.
 shell(
     "("
-    "cnvkit.py reference "
+    "cnvkit.py fix "
     "{target_coverage} "
     "{antitarget_coverage} "
-    "--fasta {reference} "
-    "--output {output_reference} "
+    "{reference} "
+    "--output {output} "
     "{extra} "
     ") "
     "{log}"
