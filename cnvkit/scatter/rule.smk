@@ -9,7 +9,7 @@ rule cnvkit_scatter:
         extra = '',
         # Plot segment lines in this color. value can be any string
         # accepted by matplotlib, e.g. 'red' or '#CC0000'
-        segment_color = ''
+        segment_color = '',
         # Plot title. [Default: sample ID, from filename or -i]
         title = '',
     threads: 1
