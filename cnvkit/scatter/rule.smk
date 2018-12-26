@@ -13,6 +13,6 @@ rule cnvkit_scatter:
         # Plot title. [Default: sample ID, from filename or -i]
         title = '',
     threads: 1
-    logs: 'logs/cnvkit/scatter/{sample}.log'
+    log: 'logs/cnvkit/scatter/{sample}.log'
     wrapper:
         'http://dohlee-bio.info:9193/cnvkit/scatter'
