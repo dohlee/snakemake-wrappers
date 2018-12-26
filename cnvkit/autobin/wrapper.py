@@ -39,8 +39,9 @@ output_antitarget = snakemake.output.output_antitarget
 
 # Generated target/antitarget bed file defaults to be in the working directory,
 # so we should move them to the desired directory explicitly.
-generated_output_target = os.path.basename(targets) + '.target.bed'
-generated_output_antitarget = os.path.basename(targets) + '.antitarget.bed'
+target_basename = os.path.splitext(os.path.basename(targets))[0]
+generated_output_target = target_basename + '.target.bed'
+generated_output_antitarget = target_basename + '.antitarget.bed'
 move_command = f'mv {generated_output_target} {output_target} && mv {generated_output_antitarget} {output_antitarget}'
 
 # Extract optional parameters.
