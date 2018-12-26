@@ -29,7 +29,7 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 extra = snakemake.params.get('extra', '')
 
 # Extract required inputs.
-bam = snakemake.input.bams
+bam = snakemake.input.bam
 targets = snakemake.input.targets
 antitargets = snakemake.input.antitargets
 
