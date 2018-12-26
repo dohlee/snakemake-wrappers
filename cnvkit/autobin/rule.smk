@@ -7,8 +7,8 @@ rule cnvkit_autobin:
         targets = 'SeqCap_EZ_Human_Exome_Library_V3.hg19.regions.bed',
         access = 'access-5k-mappable.hg19.bed',
     output:
-        'SeqCap_EZ_Human_Exome_Library_V3.hg19.regions.target.bed',
-        'SeqCap_EZ_Human_Exome_Library_V3.hg19.regions.antitarget.bed',
+        output_target = 'SeqCap_EZ_Human_Exome_Library_V3.hg19.regions.target.bed',
+        output_antitarget = 'SeqCap_EZ_Human_Exome_Library_V3.hg19.regions.antitarget.bed',
     params:
         extra = '',
     threads: 1

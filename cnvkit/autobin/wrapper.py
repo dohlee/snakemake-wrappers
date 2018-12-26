@@ -33,6 +33,16 @@ bams = snakemake.input.bams
 targets = snakemake.input.targets
 access = snakemake.input.access
 
+# Extract required outputs.
+output_target = snakemake.output.output_target
+output_antitarget = snakemake.output.output_antitarget
+
+# Generated target/antitarget bed file defaults to be in the working directory,
+# so we should move them to the desired directory explicitly.
+generated_output_target = os.path.basename(targets) + '.target.bed'
+generated_output_antitarget = os.path.basename(targets) + '.antitarget.bed'
+move_command = f'mv {generated_output_target} {output_target} && mv {generated_output_antitarget} {output_antitarget}'
+
 # Extract optional parameters.
 user_parameters = []
 user_parameters = ' '.join(user_parameters)
@@ -43,7 +53,8 @@ shell(
     "cnvkit.py autobin {bams} "
     "--targets {targets} "
     "--access {access} "
-    "{extra} "
+    "{extra} && "
+    "{move_command} "
     ") "
     "{log}"
 )
