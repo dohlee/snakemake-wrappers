@@ -2,7 +2,7 @@ rule salmon_index:
     input:
         'reference/Homo_sapiens.GRCh38.transcriptome.fasta'
     output:
-        'reference/Homo_sapiens.GRCh38.transcriptome.salmon_idx'
+        directory('reference/Homo_sapiens.GRCh38.transcriptome.salmon_idx')
     params:
         # Optional parameters. Omit if unneeded.
         extra = '',
