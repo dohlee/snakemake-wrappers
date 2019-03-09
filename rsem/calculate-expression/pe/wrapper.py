@@ -16,7 +16,7 @@ def all_same(x):
 def get_prefix_of_strings(strings):
     char_tuples = zip(*strings)
     prefix_tuples = itertools.takewhile(all_same, char_tuples)
-    return ''.join(x[0] for x in prefix_tuples)
+    return ''.join(x[0] for x in prefix_tuples).strip('.')
 
 
 # Extract log.
