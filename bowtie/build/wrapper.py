@@ -5,7 +5,7 @@ __license__ = "MIT"
 
 
 import itertools
-from os import path
+from os import path, makedirs
 
 from snakemake.shell import shell
 
@@ -15,6 +15,10 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 # Define utility functions.
 def get_prefix(f):
     return path.splitext(path.basename(f))[0]
+
+def assert_directory_exists(directory):
+    if not path.exists(directory):
+        makedirs(directory)
 
 # Define exception classes.
 class RuleInputException(Exception):
@@ -40,6 +44,9 @@ prefix = get_prefix(reference)
 # Extract required outputs.
 index_dir = snakemake.output.index_dir
 output = path.join(index_dir, prefix)
+
+# Assert index directory exists.
+assert_directory_exists(index_dir)
 
 # Execute shell command.
 shell(
