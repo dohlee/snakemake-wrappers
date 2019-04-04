@@ -13,7 +13,14 @@ def get_common_prefixes(strings):
     all_same = lambda x: all(x[0] == y for y in x)
 
     prefix_tuples = itertools.takewhile(all_same, zip(*strings))
-    return ''.join(x[0] for x in prefix_tuples)
+    return ''.join(x[0] for x in prefix_tuples).strip('.')
+
+def is_defined_by_user(*params):
+    extra = snakemake.params.get('extra', '')
+    for param in params:
+        if param in extra:
+            return True
+    return False
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
@@ -45,12 +52,15 @@ else:
     else:
         postprocess_command = '| samtools view -bS - > %s' % (output)
 
+sam_command = '--sam' if not is_defined_by_user('--sam', '-S') else ''
+
 # Execute shell command.
 shell(
     "("
     "bowtie "
     "{index_command} "
     "{read_command} "
+    "{sam_command} "
     "{extra} "
     "--threads {snakemake.threads} "
     "{postprocess_command}) "
