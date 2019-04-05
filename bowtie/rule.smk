@@ -25,5 +25,5 @@ rule bowtie:
         repeat("benchmarks/bowtie/{sample}.tsv", 1)
     log: 'logs/bowtie/{sample}.log'
     wrapper:
-    'http://dohlee-bio.info:9193/bowtie'
+        'http://dohlee-bio.info:9193/bowtie'
 

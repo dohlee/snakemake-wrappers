@@ -1,4 +1,5 @@
 from pathlib import Path
+from os.path import splitext
 output_dir = Path('output_directory')
 
 rule macs2_callpeak:
@@ -8,7 +9,7 @@ rule macs2_callpeak:
         # Optional input.
         control = 'YOUR_CONTROL_SAMPLE',
     output:
-        peak = Path(output_dir) /  '{sample}.{peak_type}Peak',
+        peak = Path(output_dir) /  '{sample}.narrowPeak',
         excel = Path(output_dir) /  '{sample}_peaks.xls',
         summits = Path(output_dir) /  '{sample}_summits.bed',
         model_script = Path(output_dir) /  '{sample}_model.R',
@@ -17,7 +18,7 @@ rule macs2_callpeak:
         genome_size = 'hs',
 
         # Call broad peaks? (Automatically detected based on the output name.)
-    broad = lambda wildcards: wildcards.peak_type == 'broad',
+        broad = lambda wildcards, input: splitext(input.peak)[1].startswith('broad'),
 
         # Optional parameters. Omit if unneeded.
 
@@ -40,5 +41,5 @@ rule macs2_callpeak:
         repeat("benchmarks/macs2_callpeak/{sample}.tsv", 1)
     log: 'logs/macs2_callpeak/{sample}.log'
     wrapper:
-    'http://dohlee-bio.info:9193/macs2/callpeak'
+        'http://dohlee-bio.info:9193/macs2/callpeak'
 

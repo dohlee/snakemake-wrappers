@@ -22,5 +22,5 @@ rule macs2_filterdup:
         repeat("benchmarks/macs2_filterdup/{sample}.tsv", 1)
     log: 'logs/macs2_filterdup/{sample}.log'
     wrapper:
-    'http://dohlee-bio.info:9193/macs2/filterdup'
+        'http://dohlee-bio.info:9193/macs2/filterdup'
 

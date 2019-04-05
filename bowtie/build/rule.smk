@@ -19,4 +19,4 @@ rule bowtie_build:
         repeat("benchmarks/bowtie_build/{genome}.tsv", 1)
     log: 'logs/bowtie_build/{genome}.log'
     wrapper:
-    'http://dohlee-bio.info:9193/bowtie/build'
+        'http://dohlee-bio.info:9193/bowtie/build'
