@@ -9,7 +9,7 @@ rule macs2_callpeak_narrow:
         # Optional input.
         control = 'YOUR_CONTROL_SAMPLE',
     output:
-        peak = Path(output_dir) /  '{sample}.narrowPeak',
+        peak = Path(output_dir) /  '{sample}_peaks.narrowPeak',
         excel = Path(output_dir) /  '{sample}_peaks.xls',
         summits = Path(output_dir) /  '{sample}_summits.bed',
         model_script = Path(output_dir) /  '{sample}_model.R',
@@ -50,7 +50,7 @@ rule macs2_callpeak_broad:
         # Optional input.
         control = 'YOUR_CONTROL_SAMPLE',
     output:
-        peak = Path(output_dir) /  '{sample}.broadPeak',
+        peak = Path(output_dir) /  '{sample}_peaks.broadPeak',
         excel = Path(output_dir) /  '{sample}_peaks.xls',
         summits = Path(output_dir) /  '{sample}_summits.bed',
         model_script = Path(output_dir) /  '{sample}_model.R',

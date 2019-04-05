@@ -21,7 +21,10 @@ def optionify_params(parameter, option):
         if str(snakemake.params[parameter]) == '':
             return ''
         if type(snakemake.params[parameter]) == bool:
-            return option
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
         else:
             return option + ' ' + str(snakemake.params[parameter])
     except AttributeError:
