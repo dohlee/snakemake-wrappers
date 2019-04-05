@@ -69,5 +69,6 @@ shell(
     "{name_command} "
     "{user_parameters} "
     "{extra} "
+    ") "
     "{log}"
 )
