@@ -50,7 +50,7 @@ output_dir = path.dirname(snakemake.output.peak)
 output_command = '--outdir %s' % output_dir
 
 # Extract common prefixes of output files.
-common_prefix = get_common_prefixes([path.basename(f) for f in snakemake.output])
+common_prefix = get_common_prefixes([path.basename(f) for f in snakemake.output])[:-1]
 name_command = '-n %s' % common_prefix
 
 # Extract user parameters.
