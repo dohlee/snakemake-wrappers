@@ -1,4 +1,4 @@
-from Pathlib import path
+from pathlib import Path
 output_dir = Path('output_directory')
 
 rule macs2_callpeak:
