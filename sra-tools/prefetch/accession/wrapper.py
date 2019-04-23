@@ -38,7 +38,7 @@ except:
 
 # Fallback: if sra file does not exist in SRA, find it in ENA.
 if not sra_found:
-    ftp_path = 'ftp://ftp.sra.ebi.ac.uk/vol1/%s/%s/%s' % (acc[:3], acc[:6], acc)
+    ftp_path = 'ftp://ftp.sra.ebi.ac.uk/vol1/%s/%s/%s' % (acc[:3].lower(), acc[:6], acc)
 
 # Execute shell command.
 shell(
