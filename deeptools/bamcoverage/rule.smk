@@ -11,6 +11,9 @@ rule deeptools_bamcoverage:
         extra = '',
         # The computed scaling factor (or 1, if not applicable) will be multiplied by this.
         scale_factor = 1,
+        # Bin size (default: 50).
+        # The smaller the bin size, the bigger the output file will be.
+        bin_size = 1,
         # Region of the genome to limit the operation to.
         # e.g. region = 'chr2:10000000-10100000'
         region = '',
@@ -37,6 +40,12 @@ rule deeptools_bamcoverage:
         # (regions without overlapping reads) in a BAM file
         # should be skipped.
         skip_non_covered_regions = False,
+        # The smooth length defines a window, larger than the binSize,
+        # to average the number of reads. For example, if the --binSize is set to 20
+        # and the --smoothLength is set to 60, then for each bin, the average of the bin
+        # and its left and right neighbors is considered.
+        # Any value smaller than --binSize will be ignored and no smoothing will be applied.
+        smooth_length = 5,
     threads: 1
     log: 'logs/deeptools_bamcoverage/{sample}.log'
     benchmark: 'benchmark/deeptools_bamcoverage/{sample}.txt'

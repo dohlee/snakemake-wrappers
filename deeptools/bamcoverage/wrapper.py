@@ -54,10 +54,12 @@ else:
 # Extract user parameters.
 user_parameters = []
 user_parameters.append(optionify_params('scale_factor', '--scaleFactor'))
+user_parameters.append(optionify_params('bin_size', '--binSize'))
 user_parameters.append(optionify_params('region', '--region'))
 user_parameters.append(optionify_params('effective_genome_size', '--effectiveGenomeSize'))
 user_parameters.append(optionify_params('normalize_using', '--normalizeUsing'))
 user_parameters.append(optionify_params('skip_non_covered_regions', '--skipNonCoveredRegions'))
+user_parameters.append(optionify_params('smooth_length', '--smoothLength'))
 user_parameters = ' '.join(user_parameters)
     
 # Execute shell command.
@@ -67,6 +69,7 @@ shell(
     "--bam {bam} "
     "--outFileName {output} "
     "--outFileFormat {out_format} "
+    "--numberOfProcessors {snakemake.threads} "
     "{user_parameters} "
     "{extra} "
     ") "
