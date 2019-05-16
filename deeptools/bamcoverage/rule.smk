@@ -39,5 +39,5 @@ rule deeptools_bamcoverage:
         skip_non_covered_regions = False,
     threads: 1
     log: 'logs/deeptools_bamcoverage/{sample}.log'
-    benchmark: '/benchmark/deeptools_bamcoverage/{sample}.log'
+    benchmark: 'benchmark/deeptools_bamcoverage/{sample}.txt'
     wrapper: 'http://dohlee-bio.info:9193/deeptools/bamcoverage'

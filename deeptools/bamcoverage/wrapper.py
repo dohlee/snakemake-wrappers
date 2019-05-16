@@ -42,7 +42,7 @@ extra = snakemake.params.get('extra', '')
 bam = snakemake.input.bam
 
 # Extract required outputs.
-output = snakemake.input.bam
+output = snakemake.output.output
 # Determine output file format.
 if is_bigwig(output):
     out_format = 'bigwig'
@@ -50,7 +50,6 @@ elif is_bedgraph(output):
     out_format = 'bedgraph'
 else:
     raise TypeError('Output extension should be one of ["bw", "bigwig", "bigWig", "bedgraph", "bedGraph"]')
-out_file_format = '--outFileFormat %s' % out_format
 
 # Extract user parameters.
 user_parameters = []
@@ -65,9 +64,9 @@ user_parameters = ' '.join(user_parameters)
 shell(
     "("
     "bamCoverage "
-    "--bam {input} "
+    "--bam {bam} "
     "--outFileName {output} "
-    "--outFileFormat {out_file_format} "
+    "--outFileFormat {out_format} "
     "{user_parameters} "
     "{extra} "
     ") "
