@@ -60,6 +60,7 @@ user_parameters.append(optionify_params('effective_genome_size', '--effectiveGen
 user_parameters.append(optionify_params('normalize_using', '--normalizeUsing'))
 user_parameters.append(optionify_params('skip_non_covered_regions', '--skipNonCoveredRegions'))
 user_parameters.append(optionify_params('smooth_length', '--smoothLength'))
+user_parameters.append(optionify_params('extend_reads', '--extendReads'))
 user_parameters = ' '.join(user_parameters)
     
 # Execute shell command.

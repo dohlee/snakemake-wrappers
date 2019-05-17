@@ -46,6 +46,13 @@ rule deeptools_bamcoverage:
         # and its left and right neighbors is considered.
         # Any value smaller than --binSize will be ignored and no smoothing will be applied.
         smooth_length = 5,
+        # This parameter allows the extension of reads to fragment size. If set, each read is
+        # extended, without exception.
+        # Single end: Requires a user specified value for the final fragment length.
+        # Reads that already exceed this fragment length will not be extended.
+        # Paired end: Reads with mates are always extended to match the fragment
+        # size defined by the two read mates.
+        extend_reads = 200,
     threads: 1
     log: 'logs/deeptools_bamcoverage/{sample}.log'
     benchmark: 'benchmark/deeptools_bamcoverage/{sample}.txt'
