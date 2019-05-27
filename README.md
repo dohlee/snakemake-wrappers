@@ -14,45 +14,49 @@
     - EBSeq
     - edgeR
 - Gene expression quantification
-  - rsem
-  - feature-counts
-  - htseq
-  - kallisto
-  - cufflinks
-  - salmon
+  - [rsem](rsem)
+  - [feature-counts](feature-counts)
+  - [htseq](htseq)
+  - [kallisto](kallisto)
+  - [cufflinks](cufflinks)
+  - [salmon](salmon)
 - Variant calling
-  - freebayes
-  - somatic-sniper
-  - varscan/somatic
-  - strelka2
+  - [freebayes](freebayes)
+  - [somatic-sniper](somatic-sniper)
+  - [varscan/somatic](varscan/somatic)
+  - [strelka2](strelka2)
 - Variant annotation
-  - snpeff
+  - [snpeff](snpeff)
 - Copy number analysis
-  - varscan/copynumber
-  - varscan/copycaller
-  - dnacopy/cbs-segmentation
+  - [varscan/copynumber](varscan/copynumber)
+  - [varscan/copycaller](varscan/copycaller)
+  - [dnacopy/cbs-segmentation](dnacopy/cbs-segmentation)
+  - [cnvkit](cnvkit)
 - Alignment manipulation
-  - sambamba
-  - samtools
+  - [sambamba](sambamba)
+  - [samtools](samtools)
 - Data retrieval
-  - sra-tools
-    - prefetch
-  - parallel-fastq-dump
+  - [sra-tools](sra-tools)
+    - [prefetch](prefetch)
+  - [parallel-fastq-dump](parallel-fastq-dump)
 - Preprocessing
-  - fastqc
-  - trim-galore
-  - fastp
+  - [fastqc](fastqc)
+  - [trim-galore](trim-galore)
+  - [fastp](fastp)
 - Aligner
-  - bwa
+  - [bwa](bwa)
+  - [bowtie](bowtie)
+  - [bowtie2](bowtie2)
 - Splice-aware aligner
-  - hisat2
-  - star
+  - [hisat2](hisat2)
+  - [star](star)
 - Bisulfite-aligner
-  - bwa-meth
-  - bismark
-  - bsmap
+  - [bwa-meth](bwa-meth)
+  - [bismark](bismark)
+  - [bsmap](bsmap)
 - Bisulfite-seq postprocessing
-  - methyldackel
+  - [methyldackel](methyldackel)
 - Misc
-  - subsample-fastq
-  - wgsim
+  - [subsample-fastq](subsample-fastq)
+  - [wgsim](wgsim)
+  - [tabix](tabix)
