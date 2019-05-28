@@ -48,9 +48,9 @@ if (gtf is not None) and (gff3 is not None):
     raise RuleInputException('You cannot provide both GTF and GFF3 files.')
 annotation_option = ''
 if gtf is not None:
-    annotation_option = '--gtf {gtf}'
+    annotation_option = '--gtf %s' % gtf
 elif gff3 is not None:
-    annotation_option = '--gff3 {gff3}'
+    annotation_option = '--gff3 %s' % gff3
 
 output_prefix = snakemake.output[0].rstrip('.transcripts.fa')
 threads = snakemake.threads
