@@ -55,10 +55,10 @@ user_parameters.append(optionify_params('sampling_for_bam', '--sampling-for-bam'
 user_parameters.append(optionify_params('output_genome_bam', '--output-genome-bam'))
 user_parameters.append(optionify_params('sort_bam_by_coordinate', '--sort-bam-by-coordinate'))
 user_parameters.append(optionify_params('sort_bam_memory_per_thread', '--sort-bam-memory-per-thread'))
-user_parameters = ' '.join(user_parameters)
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required arguments.
-reads = snakemake.input.reads
+read = snakemake.input.read
 reference = snakemake.input.reference
 output_prefix = get_prefix_of_strings(snakemake.output)
 threads = snakemake.threads
@@ -67,7 +67,7 @@ threads = snakemake.threads
 shell(
     "("
     "rsem-calculate-expression "
-    "--paired-end {reads} "
+    "{read} "
     "-p {threads} "
     "{reference} "
     "{output_prefix} "

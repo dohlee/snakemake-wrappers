@@ -13,8 +13,31 @@ log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 class RuleInputException(Exception):
     pass
 
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
+
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
+user_parameters = []
+user_parameters.append(optionify_params('gff3_rna_patterns', '--gff3-RNA-patterns'))
+user_parameters.append(optionify_params('trusted_sources', '--trusted-sources'))
+user_parameters.append(optionify_params('transcript_to_gene_map', '--transcipt-to-gene-map'))
+user_parameters.append(optionify_params('allele_to_gene_map', '--allele-to-gene-map'))
+user_parameters.append(optionify_params('quiet', '--quiet'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required arguments.
 fasta = snakemake.input.fasta
@@ -38,6 +61,7 @@ shell(
     "rsem-prepare-reference "
     "{annotation_option} "
     "{extra} "
+    "{user_parameters} "
     "{fasta} "
     "{output_prefix} "
     ")"
