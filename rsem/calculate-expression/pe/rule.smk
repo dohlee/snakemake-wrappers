@@ -4,7 +4,7 @@ rule rsem_calculate_expression_pe:
         reads = ['{sample}.read1.fastq.gz', '{sample}.read2.fastq.gz'],
         # NOTE: REFERENCE_PREFIX.transcipts.fa should be generated via
         # rsem-prepare-reference
-        reference = 'REFERENCE_PREFIX',
+        reference = 'REFERENCE_PREFIX.transcripts.fa',
     output:
         genes = '{sample}.genes.results',
         isoforms = '{sample}.isoforms.results'
