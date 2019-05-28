@@ -103,4 +103,4 @@ rule rsem_calculate_expression_pe:
     log: 'logs/rsem_calculate_expression_pe/{sample}.log'
     benchmark: 'benchmarks/rsem_calculate_expression_pe/{sample}.benchmark'
     wrapper:
-        'http://dohlee-bio.info:9193/rsem/calculate-expression/pe
+        'http://dohlee-bio.info:9193/rsem/calculate-expression/pe'

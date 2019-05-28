@@ -103,4 +103,4 @@ rule rsem_calculate_expression_se:
     log: 'logs/rsem_calculate_expression_se/{sample}.log'
     benchmark: 'benchmarks/rsem_calculate_expression_se/{sample}.benchmark'
     wrapper:
-        'http://dohlee-bio.info:9193/rsem/calculate-expression/se
+        'http://dohlee-bio.info:9193/rsem/calculate-expression/se'
