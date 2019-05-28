@@ -59,7 +59,7 @@ user_parameters = ' '.join(user_parameters)
 
 # Extract required arguments.
 reads = snakemake.input.reads
-reference = snakemake.input.reference
+reference = snakemake.input.reference[:-15]  # Strip trailing '.transcripts.fa'.
 output_prefix = get_prefix_of_strings(snakemake.output)
 threads = snakemake.threads
 
