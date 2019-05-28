@@ -59,7 +59,7 @@ rule rsem_calculate_expression_pe:
         # Calculate 95% credibility intervals and posterior mean esimates.
         # The credibility level can be changed by setting '--ci-credibility-level'.
         # Default: False
-        calc_ci = True
+        calc_ci = False,
         # Supress the output of logging information.
         # Default: False
         quiet = False,
