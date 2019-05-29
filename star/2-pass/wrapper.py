@@ -70,7 +70,7 @@ user_parameters.append(optionify_params('out_filter_score_min_over_l_read', '--o
 user_parameters.append(optionify_params('out_filter_match_n_min', '--outFilterMatchNmin'))
 user_parameters.append(optionify_params('out_filter_match_n_min_over_l_read', '--outFilterMatchNminOverLread'))
 user_parameters.append(optionify_params('out_filter_intron_motifs', '--outFilterIntronMotifs'))
-user_parameters.append(optionify_params('out_filter_intron_strands', '--outFilterIntronStrand'))
+user_parameters.append(optionify_params('out_filter_intron_strands', '--outFilterIntronStrands'))
 user_parameters.append(optionify_params('out_sj_filter_reads', '--outSJfilterReads'))
 user_parameters.append(optionify_params('out_sj_filter_overhang_min', '--outSJfilterOverhangMin'))
 user_parameters.append(optionify_params('out_sj_filter_count_unique_min', '--outSJfilterCountUniqueMin'))
