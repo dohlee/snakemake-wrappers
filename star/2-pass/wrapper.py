@@ -108,7 +108,6 @@ shell(
     "--genomeDir {star_index} "
     "--outFileNamePrefix {output_prefix} "
     "--outSAMtype BAM SortedByCoordinate "
-    "{read_files_command} "
     "{extra} "
     "{user_parameters} "
     "{rename_command} "
