@@ -95,7 +95,7 @@ rename_command = '&& mv {prefix}Aligned.sortedByCoord.out.bam {prefix}sorted.bam
 
 transcriptome_rename_command = ''
 if snakemake.params.quant_mode == 'TranscriptomeSAM':
-    transcriptome_rename_command = '&& mv {prefix}Aligned.toTranscriptome.sortedByCoord.out.bam {prefix}.transcriptome.sorted.bam'.format(prefix=output_prefix)
+    transcriptome_rename_command = '&& mv {prefix}Aligned.toTranscriptome.out.bam {prefix}transcriptome.bam'.format(prefix=output_prefix)
 
 # Execute shell command.
 shell(

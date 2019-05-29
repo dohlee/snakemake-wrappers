@@ -10,7 +10,7 @@ rule star_2_pass:
         # Aligning to transcriptome is optional.
         # NOTE: You should set quantMode to 'TranscriptomeSAM' to get 
         # this output.
-        transcriptome_alignment = 'result/{sample}/{sample}.sorted.bam'
+        transcriptome_alignment = 'result/{sample}/{sample}.bam'
     threads: 1
     params:
         # Optional parameters. Read through the comments carefully.
@@ -172,5 +172,7 @@ rule star_2_pass:
         # Minimum overhang (i.e. block size) for spliced alignments.
         # Default: 5
         align_sj_overhang_min = 5,
+    log: 'logs/star_2_pass/{sample}.log'
+    benchmark: 'benchmarks/star_2_pass/{sample}.benchmark'
     wrapper:
         'http://dohlee-bio.info:9193/star/2-pass'
