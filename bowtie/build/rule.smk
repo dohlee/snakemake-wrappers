@@ -48,7 +48,7 @@ rule bowtie_build:
         quiet = False,
     threads: 4
     benchmark:
-        repeat("benchmarks/bowtie_build/{genome}.tsv", 1)
+        repeat('benchmarks/bowtie_build/{genome}.tsv', 1)
     log: 'logs/bowtie_build/{genome}.log'
     wrapper:
         'http://dohlee-bio.info:9193/bowtie/build'

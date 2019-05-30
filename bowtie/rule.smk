@@ -150,7 +150,7 @@ rule bowtie:
         mapq_cutoff = 10,
     threads: 4
     benchmark:
-        repeat("benchmarks/bowtie/{sample}.tsv", 1)
+        repeat('benchmarks/bowtie/{sample}.tsv', 1)
     log: 'logs/bowtie/{sample}.log'
     wrapper:
         'http://dohlee-bio.info:9193/bowtie'
