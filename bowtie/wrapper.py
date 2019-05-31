@@ -100,7 +100,7 @@ user_parameters.append(optionify_params('sam_rg', '--sam-RG'))
 user_parameters.append(optionify_params('offrate', '--offrate'))
 user_parameters.append(optionify_params('mm', '--mm'))
 user_parameters.append(optionify_params('shmem', '--shmem'))
-user_parameters = ' '.join([p for p in user_parameters if p != ' '])
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
 reads = snakemake.input.reads

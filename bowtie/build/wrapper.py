@@ -62,7 +62,7 @@ user_parameters.append(optionify_params('ftabchars', '--ftabchars'))
 user_parameters.append(optionify_params('ntoa', '--ntoa'))
 user_parameters.append(optionify_params('seed', '--seed'))
 user_parameters.append(optionify_params('quiet', '--quiet'))
-user_parameters = ' '.join([p for p in user_parameters if p != ' '])
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 
 # Assert input and output have been correctly given.
