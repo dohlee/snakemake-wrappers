@@ -23,11 +23,15 @@ def optionify_input(parameter, option):
 def optionify_params(parameter, option):
     """Return optionified parameter."""
     try:
-        param = str(snakemake.params[parameter])
-        if param:
-            return option + ' ' + str(snakemake.params[parameter])
-        else:
+        if str(snakemake.params[parameter]) == '':
             return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
     except AttributeError:
         return ''
 
@@ -41,21 +45,32 @@ output = snakemake.output[0]
 # Extract parameters.
 # Extract optional parameters.
 extra = snakemake.params.get('extra', '')
+user_parameters = []
+user_parameters.append(optionify_params('order', '--order'))
+user_parameters.append(optionify_params('max_reads_in_buffer', '--max-reads-in-buffer'))
+user_parameters.append(optionify_params('stranded', '--stranded'))
+user_parameters.append(optionify_params('minaqual', '--minaqual'))
+user_parameters.append(optionify_params('type', '--type'))
+user_parameters.append(optionify_params('idattr', '--idattr'))
+user_parameters.append(optionify_params('additional_attr', '--additional-attr'))
+user_parameters.append(optionify_params('mode', '--mode'))
+user_parameters.append(optionify_params('nonunique', '--nonunique'))
+user_parameters.append(optionify_params('secondary_alignments', '--secondary-alignments'))
+user_parameters.append(optionify_params('samout', '--samout'))
+user_parameters.append(optionify_params('quiet', '--quiet'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
+
 file_format_option = ''
 if alignment.endswith('.bam') and '-f bam' not in extra:
     file_format_option = '-f bam'
-
-mode_option = optionify_params('mode', '--mode')
-stranded_option = optionify_params('stranded', '--stranded')
 
 # Execute shell command.
 shell(
     "("
     "htseq-count "
     "{extra} "
+    "{user_parameters} "
     "{file_format_option} "
-    "{mode_option} "
-    "{stranded_option} "
     "{alignment} "
     "{annotation}"
     ") > {output} "
