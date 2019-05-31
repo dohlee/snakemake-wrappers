@@ -110,7 +110,7 @@ else:
     read_command = '%s' % (reads[0])
 
 index_dir = snakemake.input.index_dir
-prefix = get_common_prefixes(listdir(index_dir))
+prefix = get_common_prefixes([f for f in listdir(index_dir) if not f.startswith('.')])
 index_command = path.join(index_dir, prefix)
 
 # Extract required outputs.

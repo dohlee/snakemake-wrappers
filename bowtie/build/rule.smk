@@ -6,11 +6,11 @@ rule bowtie_build:
         # Reference genome fasta.
         # e.g.
         # reference = config['reference']['genome']['fasta']
-        reference = 'REFERENCE_FASTA'
+        reference = 'REFERENCE_FASTA',
     output:
         # e.g.
         # reference_indices = config['reference']['genome']['bowtie_index_dir']
-        index_dir = directory('DIRECTORY_FOR_YOUR_BOWTIE_INDEX')
+        index_dir = directory('DIRECTORY_FOR_YOUR_BOWTIE_INDEX'),
     params:
         # Additional parameters go here.
         extra = '',
