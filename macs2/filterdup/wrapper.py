@@ -43,9 +43,12 @@ output_command = '-o %s' % output_file
 
 # Extract user parameters.
 user_parameters = []
-user_parameters.append(optionify_params('keep_duplicate', '--keep-dup'))
-user_parameters.append(optionify_params('genome_size', '-g'))
-user_parameters = ' '.join(user_parameters)
+user_parameters.append(optionify_params('gsize', '--gsize'))
+user_parameters.append(optionify_params('tsize', '--tsize'))
+user_parameters.append(optionify_params('pvalue', '--pvalue'))
+user_parameters.append(optionify_params('keep_dup', '--keep_dup'))
+user_parameters.append(optionify_params('verbose', '--verbose'))
+user_parameters = ' '.join([p for p in user_parameters if not p != ''])
     
 # Execute shell command.
 shell(
