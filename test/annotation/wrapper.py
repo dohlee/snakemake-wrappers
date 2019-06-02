@@ -14,6 +14,6 @@ output = snakemake.output[0]
 # Execute shell command.
 shell(
     "("
-    "wget https://dohlee-bioinfo.sgp1.digitaloceanspaces.com/test-data/annotation/Homo_sapiens.GRCh38.annotation.annotation.gtf -qO {output}"
+    "wget https://dohlee-bioinfo.sgp1.digitaloceanspaces.com/test-data/annotation/Homo_sapiens.GRCh38.annotation.gtf -qO {output}"
     ")"
 )
