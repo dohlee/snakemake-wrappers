@@ -13,17 +13,17 @@ read1 = snakemake.output[0]
 read2 = snakemake.output[1]
 
 if read1.endswith('.gz'):
-    read1_wget_output = output
+    read1_wget_output = read1
     read1_gunzip_command = ':'
 else:
-    read1_wget_output = output + '.gz'
+    read1_wget_output = read1 + '.gz'
     read1_gunzip_command = 'gunzip %s' % wget_output
 
 if read2.endswith('.gz'):
-    read2_wget_output = output
+    read2_wget_output = read2
     read2_gunzip_command = ':'
 else:
-    read2_wget_output = output + '.gz'
+    read2_wget_output = read2 + '.gz'
     read2_gunzip_command = 'gunzip %s' % wget_output
 
 # Execute shell command.
