@@ -15,7 +15,7 @@ if output.endswith('.gz'):
     gunzip_command = ':'
 else:
     wget_output = output + '.gz'
-    gunzip_command = 'gunzip {wget_output}'
+    gunzip_command = 'gunzip %s' % wget_output
 
 # Execute shell command.
 shell(

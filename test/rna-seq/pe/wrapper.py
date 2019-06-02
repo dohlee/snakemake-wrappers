@@ -17,14 +17,14 @@ if read1.endswith('.gz'):
     read1_gunzip_command = ':'
 else:
     read1_wget_output = output + '.gz'
-    read1_gunzip_command = 'gunzip {wget_output}'
+    read1_gunzip_command = 'gunzip %s' % wget_output
 
 if read2.endswith('.gz'):
     read2_wget_output = output
     read2_gunzip_command = ':'
 else:
     read2_wget_output = output + '.gz'
-    read2_gunzip_command = 'gunzip {wget_output}'
+    read2_gunzip_command = 'gunzip %s' % wget_output
 
 # Execute shell command.
 shell(
