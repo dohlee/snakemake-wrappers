@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2019, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
-from os import dirname
+from os.path import dirname
 from snakemake.shell import shell
 
 # Define utility function.

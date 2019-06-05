@@ -1,9 +1,10 @@
 from pathlib import Path
+DATA_DIR = Path('YOUR_DATA_DIRECTORY')
 RESULT_DIR = Path('YOUR_RESULT_DIRECTORY')
 
 rule homer_motif_enrichment:
     input:
-        bed = 'YOUR_INTERVAL_FILE_GOES_HERE',
+        bed = DATA_DIR / 'YOUR_INTERVAL_FILE_GOES_HERE',
         genome = 'YOUR_GENOME_FASTA_GOES_HERE',
     output:
         homer_results = directory(RESULT_DIR / '{sample}' / 'homerResults'),
