@@ -7,8 +7,8 @@ rule homer_motif_enrichment:
         bed = DATA_DIR / 'YOUR_INTERVAL_FILE_GOES_HERE',
         genome = 'YOUR_GENOME_FASTA_GOES_HERE',
     output:
-        homer_results = directory(RESULT_DIR / '{sample}' / 'homerResults'),
-        known_results = directory(RESULT_DIR / '{sample}' / 'knownResults'),
+        homer_motifs = dynamic(str(RESULT_DIR / '{sample}' / 'homerResults' / 'motif{motif_no}.motif')),
+        known_motifs = dynamic(str(RESULT_DIR / '{sample}' / 'knownResults' / 'known{motif_no}.motif')),
     params:
         # Mask repeats/lower case sequence.
         # Default: False

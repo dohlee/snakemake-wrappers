@@ -81,10 +81,10 @@ bed = snakemake.input.bed
 genome = snakemake.input.genome
 
 # Extract required outputs.
-homer_results = snakemake.output.homer_results
-known_results = snakemake.output.known_results
+homer_motifs = snakemake.output.homer_motifs
+known_motifs = snakemake.output.known_motifs
 
-outdir = dirname(homer_results)
+outdir = dirname(homer_motifs)
 
 # Execute shell command.
 shell(
