@@ -20,9 +20,9 @@ else:
 BASE_URL = 'https://dohlee-bioinfo.sgp1.digitaloceanspaces.com/test-data/reference/'
 if 'GRCh38' in output:
     url = BASE_URL + 'Homo_sapiens.GRCh38.genome.chr20.fasta.gz'
-elif:
+elif 'hg38' in output:
     url = BASE_URL + 'Homo_sapiens.hg38.genome.chr20.fasta.gz'
-elif:
+elif 'mm10' in output:
     url = BASE_URL + 'Mus_musculus.mm10.genome.chr19.fasta.gz'
 else:
     raise ValueError('Please specify "GRCh38" or "hg38" or "mm10" in your output file.')
