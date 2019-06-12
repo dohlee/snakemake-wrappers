@@ -1,4 +1,4 @@
 channels:
   - bioconda
 dependencies:
-  - methyldackel==0.3.0
+  - methyldackel
