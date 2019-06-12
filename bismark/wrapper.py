@@ -1,73 +1,94 @@
 __author__ = "Dohoon Lee"
-__copyright__ = "Copyright 2018, Dohoon Lee"
+__copyright__ = "Copyright 2019, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
-import os.path as path
+import itertools
+
+from os import path, listdir
 from snakemake.shell import shell
 
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
+
 # Extract log.
-log = snakemake.log_fmt_shell(stdout=True, stderr=True)
-
-# Define exception classes.
-class GenomePreparationNotCompletedException(Exception):
-    pass
-
-class RuleInputException(Exception):
-    pass
-
-class RuleOutputException(Exception):
-    pass
+log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
+user_parameters = []
+user_parameters.append(optionify_params('single_end', '--single_end'))
+user_parameters.append(optionify_params('fastq', '--fastq'))
+user_parameters.append(optionify_params('fasta', '--fasta'))
+user_parameters.append(optionify_params('skip', '--skip'))
+user_parameters.append(optionify_params('upto', '--upto'))
+user_parameters.append(optionify_params('phred33_quals', '--phred33-quals'))
+user_parameters.append(optionify_params('phred64_quals', '--phred64-quals'))
+user_parameters.append(optionify_params('path_to_bowtie2', '--path_to_bowtie2'))
+user_parameters.append(optionify_params('path_to_hisat2', '--path_to_hisat2'))
+user_parameters.append(optionify_params('N', '-N'))
+user_parameters.append(optionify_params('L', '-L'))
+user_parameters.append(optionify_params('ignore_quals', '--ignore-quals'))
+user_parameters.append(optionify_params('minins', '--minins'))
+user_parameters.append(optionify_params('maxins', '--maxins'))
+user_parameters.append(optionify_params('local', '--local'))
+user_parameters.append(optionify_params('non_directional', '--non_directional'))
+user_parameters.append(optionify_params('pbat', '--pbat'))
+user_parameters.append(optionify_params('sam_no_hd', '--sam-no-hd'))
+user_parameters.append(optionify_params('rg_tag', '--rg_tag'))
+user_parameters.append(optionify_params('rg_id', '--rg_id'))
+user_parameters.append(optionify_params('rg_sample', '--rg_sample'))
+user_parameters.append(optionify_params('unmapped', '--unmapped'))
+user_parameters.append(optionify_params('ambiguous', '--ambiguous'))
+user_parameters.append(optionify_params('temp_dir', '--temp_dir'))
+user_parameters.append(optionify_params('non_bs_mm', '--non_bs_mm'))
+user_parameters.append(optionify_params('gzip', '--gzip'))
+user_parameters.append(optionify_params('sam', '--sam'))
+user_parameters.append(optionify_params('cram', '--cram'))
+user_parameters.append(optionify_params('cram_ref', '--cram_ref'))
+user_parameters.append(optionify_params('samtools_path', '--samtools_path'))
+user_parameters.append(optionify_params('prefix', '--prefix'))
+user_parameters.append(optionify_params('basename', '--basename'))
+user_parameters.append(optionify_params('old_flag', '--old_flag'))
+user_parameters.append(optionify_params('ambig_bam', '--ambig_bam'))
+user_parameters.append(optionify_params('nucleotide_coverage', '--nucleotide_coverage'))
+user_parameters.append(optionify_params('icpc', '--icpc'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
-# Extract required arguments.
-fastq = snakemake.input.fastq
-fastq = [fastq] if isinstance(fastq, str) else fastq
-if len(fastq) > 2:
-    raise RuleInputException('Your sequencing read should be single-read or paired-ended.')
-read_command = '-1 %s -2 %s' % (fastq[0], fastq[1]) if len(fastq) == 2 else fastq[0]
-
-# Path to the directory containing the unmodified reference genome,
-# as well as the subfolders created by the `bismark_genome_preparation` script.
-# Refer to: https://www.bioinformatics.babraham.ac.uk/projects/bismark/Bismark_User_Guide.pdf
-reference_dir = snakemake.input.reference_dir
-
-# Ensure `bismark_genome_preparation` script had been run.
-bisulfite_genome_dir = snakemake.input.bisulfite_genome_dir
-if path.join(reference_dir, 'Bisulfite_Genome') != bisulfite_genome_dir:
-    raise GenomePreparationNotCompletedException('Please check that bismark_genome_preparation has been successfully finised.')
-
-# Determine the number of threads.
-# Since a typical Bismark run with 1 thread already uses about 2 (with --bowtie1) threads,
-# and 3 (with --bowtie2 which is default option), this wrapper divides the number of
-# user-defined threads with 2 or 3, depending on the bowtie option.
-if '--bowtie1' in extra:
-    threads = max(1, snakemake.threads // 2)
+# Extract required inputs.
+fastq = snakemake.fastq
+if len(fastq) == 2:
+    input_params = '-1 %s -2 %s' % (fastq[0], fastq[1])
+elif len(fastq) == 1:
+    input_params = fastq[0]
 else:
-    threads = max(1, snakemake.threads // 3)
+    raise ValueError('Please give 1 (single-read) or 2 (paired-end) fastq files for inputs of bismark.')
 
-# NOTE:
-# Single-end Bismark call (with bowtie2) will produce two output files:
-# 1. {fastq-filename}_bismark_bt2.bam
-# 2. {fastq-filename}_bismark_bt2_SE_report.txt
-# Paired-end Bismark call (with bowtie2) will produce two output files:
-# 1. {fastq-read1-filename}_bismark_bt2_pe.bam
-# 2. {fastq-read1-filename}_bismark_bt2_PE_report.txt
-
-# Check there are two output file specified.
-if len(snakemake.output) != 2:
-    if len(fastq) == 1:
-        raise RuleOutputException('Bismark has two outputs (with bowtie2): *_bismark_bt2.bam and *_bismark_bt2_SE_report.txt')
-    else:
-        raise RuleOutputException('Bismark has two outputs (with bowtie2): *_bismark_bt2_pe.bam and *_bismark_bt2_PE_report.txt')
-
+# Extract required outputs.
 output_directory = path.dirname(snakemake.output[0])
 
-# Rename bismark outputs into
-# 'result/{sample}/{sample}.bismark.bam',
-# 'result/{sample}/{sample}.bismark_report.txt'
+# Scale threads since the actual number of threads in use will be about tripled (if using bowtie2).
+threads = max(1, snakemake.threads // 3)
+
+# Rename bismark outputs into e.g.
+# 'result/se/{sample}/{sample}.bismark.bam'
+# 'result/se/{sample}/{sample}.bismark_report.txt'
+# or
+# 'result/pe/{sample}/{sample}.bismark.bam'
+# 'result/pe/{sample}/{sample}.bismark_report.txt'
 basename = path.basename(fastq[0])[:-9] if fastq[0].endswith('.gz') else path.basename(fastq[0])[:-6]
 if len(fastq) == 2:
     # Paired-end case.
@@ -92,10 +113,9 @@ shell(
     "bismark "
     "{extra} "
     "-o {output_directory} "
-    "--multicore {threads} "
-    "{reference_dir} "
-    "{read_command} "
-    "{rename_command} "
+    "--parallel {threads} "
+    "{user_parameters} "
+    "{input_params} "
     ")"
     "{log}"
 )
