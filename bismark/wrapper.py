@@ -70,6 +70,8 @@ user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
 fastq = snakemake.input.fastq
+reference_dir = snakemake.input.reference_dir
+
 if len(fastq) == 2:
     input_params = '-1 %s -2 %s' % (fastq[0], fastq[1])
 elif len(fastq) == 1:
@@ -115,6 +117,7 @@ shell(
     "-o {output_directory} "
     "--parallel {threads} "
     "{user_parameters} "
+    "{reference_dir} "
     "{input_params} "
     ")"
     "{log}"
