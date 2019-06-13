@@ -25,7 +25,7 @@ def optionify_params(parameter, option):
         return ''
 
 # Extract log.
-log = snakemake.log_fmt_shell(stdout=False, stderr=True)
+log = snakemake.log_fmt_shell(stdout=True, stderr=True)
 
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
@@ -119,6 +119,7 @@ shell(
     "{user_parameters} "
     "{reference_dir} "
     "{input_params} "
+    "{rename_command} "
     ")"
     "{log}"
 )
