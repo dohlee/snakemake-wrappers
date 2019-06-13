@@ -287,13 +287,13 @@ rule bismark_pe:
         # a 20-bp gap between them, that alignment is considered valid (as long as -X is also satisfied).
         # A 19-bp gap would not be valid in that case.
         # Default: 0
-        minins = 0,
+        minins = False,
         # The maixmum insert size for valid paired-end alignments. e.g. if -X 100 is specified and
         # a paired-end alignment consists of two 20-bp alignments in the proper orientation with a 
         # 60-bp gap between them, that alignment is considered valid (as long as -I is also satisfied)
         # A 61-bp gap would not be valid in that case.
         # Default: 500
-        maxins = 500,
+        maxins = False,
         # In this mode, it is not required that the entire read aligns from one end to the other.
         # Rather, some characters may be omitted ("soft-clipped") from the ends in order to achieve the 
         # greatest alignment score. For Bowtie 2, the match bonus --ma (default: 2) is used in this mode,
