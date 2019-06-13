@@ -1,42 +1,81 @@
 __author__ = "Dohoon Lee"
-__copyright__ = "Copyright 2018, Dohoon Lee"
+__copyright__ = "Copyright 2019, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
-
 from os import path
-
 from snakemake.shell import shell
+
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
-# Define exception classes.
-class RuleParameterException(Exception):
-    pass
-
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
-# `--fastqc` flag should not be included.
-if '--fastqc' in extra:
-    raise RuleParameterException('Please do not run trim_galore with --fastqc option.')
+user_parameters = []
+user_parameters.append(optionify_params('quality', '--quality'))
+user_parameters.append(optionify_params('phred33', '--phred33'))
+user_parameters.append(optionify_params('phred64', '--phred64'))
+user_parameters.append(optionify_params('fastqc', '--fastqc'))
+user_parameters.append(optionify_params('fastqc_args', '--fastqc_args'))
+user_parameters.append(optionify_params('adapter', '--adapter'))
+user_parameters.append(optionify_params('adapter2', '--adapter2'))
+user_parameters.append(optionify_params('illumina', '--illumina'))
+user_parameters.append(optionify_params('nextera', '--nextera'))
+user_parameters.append(optionify_params('small_rna', '--small_rna'))
+user_parameters.append(optionify_params('max_length', '--max_length'))
+user_parameters.append(optionify_params('stringency', '--stringency'))
+user_parameters.append(optionify_params('e', '-e'))
+user_parameters.append(optionify_params('length', '--length'))
+user_parameters.append(optionify_params('max_n', '--max_n'))
+user_parameters.append(optionify_params('trim_n', '--trim-n'))
+user_parameters.append(optionify_params('no_report_file', '--no_report_file'))
+user_parameters.append(optionify_params('suppress_warn', '--suppress_warn'))
+user_parameters.append(optionify_params('clip_R1', '--clip_R1'))
+user_parameters.append(optionify_params('clip_R2', '--clip_R2'))
+user_parameters.append(optionify_params('three_prime_clip_R1', '--three_prime_clip_R1'))
+user_parameters.append(optionify_params('three_prime_clip_R2', '--three_prime_clip_R2'))
+user_parameters.append(optionify_params('nextseq', '--nextseq'))
+user_parameters.append(optionify_params('basename', '--basename'))
+user_parameters.append(optionify_params('rrbs', '--rrbs'))
+user_parameters.append(optionify_params('non_directional', '--non_directional'))
+user_parameters.append(optionify_params('keep', '--keep'))
+user_parameters.append(optionify_params('trim1', '--trim1'))
+user_parameters.append(optionify_params('retain_unpaired', '--retain_unpaired'))
+user_parameters.append(optionify_params('length_1', '--length_1'))
+user_parameters.append(optionify_params('length_2', '--length_2'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
-# Extract required arguments.
-# Input should be single-ended or paired-ended.
-# Single-end case.
+# Extract required inputs.
 if len(snakemake.input) == 1:
-    read_command = snakemake.input[0]
-# Paired-end case.
+    read_params = snakemake.input[0]
+elif len(snakemake.input) == 2:
+    read_params = '--paired %s %s' % (snakemake.input[0], snakemake.input[1])
 else:
-    a, b = snakemake.input[0], snakemake.input[1]
-    read_command = '--paired %s %s' % (a, b)
+    raise ValueError('Trim Galore! wrapper gets one or two files as input. Given: %d' % len(snakemake.input))
 
-output_directory = path.dirname(snakemake.output[0])
-output_directory_option = ''
-if output_directory != '':
-    output_directory_option = '-o ' + output_directory
+# Extract required outputs.
+output_dir = path.dirname(snakemake.output[0])
+output_dir_params = ''
+if output_dir_params != '':
+    output_dir_params = '-o ' + output_dir
 
-# NOTE: For paired-end case, we rename output file *.read1_val_1.fq.gz into *.read1.trimmed.fastq.gz,
+# For paired-end case, we rename output file *.read1_val_1.fq.gz into *.read1.trimmed.fastq.gz,
 # and *.read2_val_2.fq.gz into *.read2.trimmed.fastq.gz
 if len(snakemake.input) == 2:
     # Extract sample name.
@@ -44,37 +83,34 @@ if len(snakemake.input) == 2:
         if output.endswith('.read1.trimmed.fastq.gz'):
             sample_name = path.basename(output)[:-23]
 
-    raw_read1_file = path.join(output_directory, '%s.read1_val_1.fq.gz' % sample_name)
-    renamed_read1_file = path.join(output_directory, '%s.read1.trimmed.fastq.gz' % sample_name)
+    raw_read1_file = path.join(output_dir, '%s.read1_val1_fq.gz' % sample_name)
+    renamed_read1_file = path.join(output_dir, '%s.read1.trimmed.fastq.gz' % sample_name)
+    raw_read2_file = path.join(output_dir, '%s.read2_val_2.fq.gz' % sample_name)
+    renamed_read2_file = path.join(output_dir, '%s.read2.trimmed.fastq.gz' % sample_name)
 
-    raw_read2_file = path.join(output_directory, '%s.read2_val_2.fq.gz' % sample_name)
-    renamed_read2_file = path.join(output_directory, '%s.read2.trimmed.fastq.gz' % sample_name)
+    renamed_command = '&& sleep 5 && mv %s %s && mv %s %s' % (raw_read1_file, renamed_read1_file, raw_read2_file, renamed_read2_file)
 
-    rename_command = f'&& sleep 5 && mv {raw_read1_file} {renamed_read1_file} && mv {raw_read2_file} {renamed_read2_file}'
-
-# NOTE: For single-end case, we rename *_trimmed.fastq.gz into *.trimmed.fastq.gz.
+# For single-read case, we rename *_trimmed.fq.gz into *.trimmed.fastq.gz.
 else:
     # Extract sample name from *.fastq.gz
     sample_name = path.basename(snakemake.input[0])[:-9]
-    raw_read_file = path.join(output_directory, '%s_trimmed.fq.gz' % sample_name)
-    renamed_read_file = path.join(output_directory, '%s.trimmed.fastq.gz' % sample_name)
+    raw_read_file = path.join(output_dir, '%s_trimmed.fq.gz' % sample_name)
+    renamed_read_file = path.join(output_dir, '%s.trimmed.fastq.gz' % sample_name)
     rename_command = '&& mv %s %s' % (raw_read_file, renamed_read_file)
 
-# If user wants output files to be gzipped, but did not specified --gzip option,
-# kindly add --gzip option to extra options.
+# If user wants output files to be gzipped, add --gzip option to extra options.
 if all(f.endswith('.gz') for f in snakemake.output) and ('--gzip' not in extra):
     extra += ' --gzip'
 
-# NOTE: I fixed some recommended options for fastq-dump.
-# Refer to: `fastq-dump-best-practice` in https://github.com/dohlee/bioinformatics-one-liners.
 # Execute shell command.
 shell(
     "("
     "trim_galore "
+    "{read_params} "
     "{extra} "
-    "{read_command} "
-    "{output_directory_option} "
-    "{rename_command}"
-    ")"
-    "{log} "
+    "{user_parameters} "
+    "--cores {snakemake.threads} "
+    "{rename_command} "
+    ") "
+    "{log}"
 )
