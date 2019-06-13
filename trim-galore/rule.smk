@@ -169,11 +169,11 @@ rule trim_galore_se:
         # Unpaired single-end read length cutoff needed for read 1 to be written to '.unpaired_1.fq' output
         # file. These reads may be mapped in single-end mode.
         # Default: 35
-        length_1 = 35,
+        length_1 = False,
         # Unpaired single-end read length cutoff needed for read 2 to be written to '.unpaired_2.fq' output
         # file. These reads may be mapped in single-end mode.
         # Default: 35
-        length_2 = 35,
+        length_2 = False,
     threads: 1
     log: 'logs/trim_galore/{sample}.log'
     benchmark: 'benchmarks/trim_galore/{sample}.log'
@@ -362,11 +362,11 @@ rule trim_galore_pe:
         # Unpaired single-end read length cutoff needed for read 1 to be written to '.unpaired_1.fq' output
         # file. These reads may be mapped in single-end mode.
         # Default: 35
-        length_1 = 35,
+        length_1 = False,
         # Unpaired single-end read length cutoff needed for read 2 to be written to '.unpaired_2.fq' output
         # file. These reads may be mapped in single-end mode.
         # Default: 35
-        length_2 = 35,
+        length_2 = False,
     threads: 1
     log: 'logs/trim_galore/{sample}.log'
     benchmark: 'benchmarks/trim_galore/{sample}.log'
