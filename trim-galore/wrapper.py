@@ -83,7 +83,7 @@ if len(snakemake.input) == 2:
         if output.endswith('.read1.trimmed.fastq.gz'):
             sample_name = path.basename(output)[:-23]
 
-    raw_read1_file = path.join(output_dir, '%s.read1_val_1_fq.gz' % sample_name)
+    raw_read1_file = path.join(output_dir, '%s.read1_val_1.fq.gz' % sample_name)
     renamed_read1_file = path.join(output_dir, '%s.read1.trimmed.fastq.gz' % sample_name)
     raw_read2_file = path.join(output_dir, '%s.read2_val_2.fq.gz' % sample_name)
     renamed_read2_file = path.join(output_dir, '%s.read2.trimmed.fastq.gz' % sample_name)
