@@ -72,7 +72,7 @@ else:
 # Extract required outputs.
 output_dir = path.dirname(snakemake.output[0])
 output_dir_params = ''
-if output_dir_params != '':
+if output_dir != '':
     output_dir_params = '-o ' + output_dir
 
 # For paired-end case, we rename output file *.read1_val_1.fq.gz into *.read1.trimmed.fastq.gz,
@@ -107,6 +107,7 @@ shell(
     "("
     "trim_galore "
     "{read_params} "
+    "{output_dir_params} "
     "{extra} "
     "{user_parameters} "
     "--cores {snakemake.threads} "
