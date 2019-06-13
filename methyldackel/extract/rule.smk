@@ -124,9 +124,6 @@ rule methyldackel_extract:
         nOB = False,
         nCTOT = False,
         nCTOB = False,
-        min_depth = 10,
-        mapping_quality_threshold = 10,
-        sequencing_quality_threshold = 5,
     threads: 1
     log: 'logs/methyldackel_extract/{sample}.log'
     benchmark: 'benchmarks/methyldackel_extract/{sample}.log'
