@@ -43,17 +43,14 @@ user_parameters = ' '.join([p for p in user_parameters if p != ''])
 # Extract required inputs.
 reference_dir = snakemake.input
 
-# Scale threads since the actual number of threads in use will be doubled.
-threads = snakemake.threads // 2
-
 # Execute shell command.
 shell(
     "("
     "bismark_genome_preparation "
     "{extra} "
     "{user_parameters} "
+    "--parallel {snakemake.threads} "
     "{reference_dir} "
-    "--parallel {threads} "
     ")"
     "{log}"
 )
