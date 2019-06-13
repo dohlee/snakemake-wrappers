@@ -69,7 +69,7 @@ user_parameters.append(optionify_params('icpc', '--icpc'))
 user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
-fastq = snakemake.fastq
+fastq = snakemake.input.fastq
 if len(fastq) == 2:
     input_params = '-1 %s -2 %s' % (fastq[0], fastq[1])
 elif len(fastq) == 1:
