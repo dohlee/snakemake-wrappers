@@ -39,7 +39,6 @@ user_parameters.append(optionify_params('l', '-l'))
 user_parameters.append(optionify_params('keepStrand', '--keepStrand'))
 user_parameters.append(optionify_params('chunkSize', '--chunkSize'))
 user_parameters.append(optionify_params('mergeContext', '--mergeContext'))
-user_parameters.append(optionify_params('opref', '--opref'))
 user_parameters.append(optionify_params('keepDupes', '--keepDupes'))
 user_parameters.append(optionify_params('keepSingleton', '--keepSingleton'))
 user_parameters.append(optionify_params('keepDiscordant', '--keepDiscordant'))
@@ -70,12 +69,16 @@ reference = snakemake.input.reference
 output = snakemake.output[0]
 if output.endswith('_CpG.bedGraph'):
     type_option = ''
+    output_prefix = output[:-13]
 elif output.endswith('_CpG.meth.bedGraph'):
     type_option = '--fraction'
+    output_prefix = output[:-18]
 elif output.endswith('_CpG.counts.bedGraph'):
     type_option = '--counts'
+    output_prefix = output[:-20]
 elif output.endswith('_CpG.logit.bedGraph'):
     type_option = '--logit'
+    output_perfix = output[:-19]
 else:
     raise ValueError('Unrecognized output format: %s. Use *_CpG.bedGrah or *_CpG.{meth,counts,logit}.bedGraph')
 
@@ -86,6 +89,7 @@ shell(
     "-@ {snakemake.threads} "
     "{extra} "
     "{user_parameters} "
+    "-o {output_prefix} "
     "{type_option} "
     "{reference} "
     "{bam} "

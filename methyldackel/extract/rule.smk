@@ -41,9 +41,6 @@ rule methyldackel_extract:
         # Merge per-Cytosine metrics from CpG and CHG contexts into per-CPG or per-CHG metrics.
         # Default: False,
         mergeContext = False,
-        # Output filename prefix. CpG/CHG/CHH context metrics will be output to STR_CpG.bedGraph and so on.
-        # Default: False
-        opref = False,
         # By default, any alignment marked as a duplicate is ignored. This option causes them to be incorporated.
         # This will unset bit 0x400 in --ignoreFlags.
         # Default: False
