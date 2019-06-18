@@ -3,33 +3,38 @@ __copyright__ = "Copyright 2018, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
-
+from os import path, listdir
 from snakemake.shell import shell
+
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
-# Define exception classes.
-class RuleInputException(Exception):
-    pass
-
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
+user_parameters = []
+user_parameters.append(optionify_params('read_group', '--read-group'))
+user_parameters.append(optionify_params('set_as_failed', '--set-as-failed'))
+user_parameters.append(optionify_params('interleaved', '--interleaved'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
 reads = snakemake.input.reads
-mates = snakemake.input.get('mates', '')
-if isinstance(reads, str):
-    reads = [reads]
-if isinstance(mates, str):
-    mates = [mates]
-if len(reads) < 1:
-    raise RuleInputException('You should give at least one reads and mates. Given: %d' % len(reads))
-if len(reads) != len(mates):
-    raise RuleInputException('The number of reads and their pairs should match. Given: %d reads, %d mates' % (len(reads), len(mates)))
-
-reads, mates = ','.join(reads), ','.join(mates)
-
 reference = snakemake.input.reference
 
 # Extract required outputs.
@@ -46,11 +51,12 @@ shell(
     "("
     "bwameth.py "
     "{extra} "
+    "{user_parameters} "
     "-t {snakemake.threads} "
     "--reference {reference} "
     "{reads} "
-    "{mates} "
     "{pipe_command} > "
-    "{output}) "
+    "{output} "
+    ")"
     "{log}"
 )
