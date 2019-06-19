@@ -30,4 +30,4 @@ rule bwameth:
     log: 'logs/bwameth/{sample}.log'
     benchmark: 'benchmarks/bwameth/{sample}.log'
     wrapper:
-        'http://dohlee-bio.info:9193/bwa/meth'
+        'http://dohlee-bio.info:9193/bwa-meth'
