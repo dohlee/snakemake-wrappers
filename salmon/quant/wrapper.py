@@ -1,55 +1,87 @@
 __author__ = "Dohoon Lee"
-__copyright__ = "Copyright 2018, Dohoon Lee"
+__copyright__ = "Copyright 2019, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
+import itertools
 
-from os import path
-
+from os import path, listdir
 from snakemake.shell import shell
+
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
-# Define exception classes.
-class RuleInputException(Exception):
-    pass
-
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
-library_type = snakemake.params.get('library_type', 'A')
+library_type_parameter = optionify_params('libType', '--libType')
+user_parameters = []
+user_parameters.append(optionify_params('seqBias', '--seqBias'))
+user_parameters.append(optionify_params('gcBias', '--gcBias'))
+user_parameters.append(optionify_params('incompatPrior', '--incompatPrior'))
+user_parameters.append(optionify_params('geneMap', '--geneMap'))
+user_parameters.append(optionify_params('meta', '--meta'))
+user_parameters.append(optionify_params('discardOrphansQuasi', '--discardOrphansQuasi'))
+user_parameters.append(optionify_params('validateMappings', '--validateMappings'))
+user_parameters.append(optionify_params('consensusSlack', '--consensusSlack'))
+user_parameters.append(optionify_params('minScoreFraction', '--minScoreFraction'))
+user_parameters.append(optionify_params('maxMMPExtension', '--maxMMPExtension'))
+user_parameters.append(optionify_params('ma', '--ma'))
+user_parameters.append(optionify_params('mp', '--mp'))
+user_parameters.append(optionify_params('go', '--go'))
+user_parameters.append(optionify_params('ge', '--ge'))
+user_parameters.append(optionify_params('bandwidth', '--bandwidth'))
+user_parameters.append(optionify_params('allowDovetail', '--allowDovetail'))
+user_parameters.append(optionify_params('recoverOrphans', '--recoverOrphans'))
+user_parameters.append(optionify_params('mimicBT2', '--mimicBT2'))
+user_parameters.append(optionify_params('mimicStrictBT2', '--mimicStrictBT2'))
+user_parameters.append(optionify_params('hardFilter', '--hardFilter'))
+user_parameters.append(optionify_params('writeMappings', '--writeMappings'))
+user_parameters.append(optionify_params('consistentHits', '--consistentHits'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
-# Extract required arguments.
-fastq = snakemake.input.fastq
-fastq = [fastq] if isinstance(fastq, str) else fastq
-if len(fastq) > 2:
-    raise RuleInputException('Your sequencing read should be single-read or paired-end.')
-
-# Single-end command
-if len(fastq) == 1:
-    read_command = '-r ' + fastq[0]
-# Paired-end command
-else:
-    read_command = '-1 ' + fastq[0] + ' -2 ' + fastq[1]
-
+# Extract required inputs.
+reads = snakemake.input.reads
 index = snakemake.input.index
-threads = snakemake.threads
 
+if len(reads) == 1: # Single-end
+    read_command = '-r %s' % reads[0]
+elif len(reads) == 2:  # Paired-end
+    read_command = '-1 %s -2 %s' % (reads[0], reads[1])
+else:
+    raise ValueError('Please give one or two reads.')
+
+# Extract required outputs.
 quant = snakemake.output.quant
 lib = snakemake.output.lib
-output_directory = path.dirname(snakemake.output.quant)
+output_directory = path.dirname(quant)
 
 # Execute shell command.
 shell(
     "("
     "salmon quant "
-    "-i {index} "
-    "-l {library_type} "
-    "-o {output_directory} "
+    "{library_type_parameter} "
     "{read_command} "
-    "-p {threads} "
-    "--validateMappings "
+    "-i {index} "
+    "-o {output_directory} "
+    "-p {snakemake.threads} "
     "{extra} "
+    "{user_parameters} "
     ")"
     "{log}"
 )
