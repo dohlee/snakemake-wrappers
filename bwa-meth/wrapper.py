@@ -46,9 +46,13 @@ pipe_command = ''
 if output.endswith('.bam'):
     pipe_command = '| samtools view -Sb -'
 
+# NOTE: Touch bwa indices before running.
+touch_command = 'touch %s' % ' '.join([reference + '.bwameth.c2t.%s' % suffix for suffix in ['amb', 'ann', 'bwt', 'pac', 'sa']])
+
 # Execute shell command.
 shell(
     "("
+    "{touch_command} && "
     "bwameth.py "
     "{extra} "
     "{user_parameters} "
