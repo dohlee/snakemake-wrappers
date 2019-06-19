@@ -14,7 +14,7 @@ rule bwameth:
         extra = '',
         # Read-group to add to bam in same format as to bwa:
         # '@RG\tID:foo\tSM:bar'
-        read_group = lambda wildcards: '"@RG\tID:%s\tSM:%s\tPL:ILLUMINA"' % (wildcards.sample, wildcards.sample),
+        read_group = lambda wildcards: '"@RG\\tID:%s\\tSM:%s\\tPL:ILLUMINA"' % (wildcards.sample, wildcards.sample),
         # flag alignments to this strand as not passing QC (0x200). Targetted BS-Seq libraries
         # are often to a single strand, so we can flag them as QC failures.
         # Note f == OT, r == OB. Likely, this will be 'f' as we will expect reads to align
