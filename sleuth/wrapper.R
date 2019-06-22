@@ -4,7 +4,7 @@ library(dplyr)
 directories = dirname(unlist(snakemake@input))
 
 manifest = read.csv(snakemake@params[['manifest']])
-manifest = dplyr::select(manifest, name, condition)
+manifest = dplyr::select(manifest, sample=name, condition)
 manifest = dplyr::mutate(manifest, path=directories)
 
 so = sleuth_prep(manifest, extra_bootstrap_summary=TRUE)
