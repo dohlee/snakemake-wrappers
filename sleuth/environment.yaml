@@ -1,0 +1,6 @@
+channels:
+    - bioconda
+    - r
+dependencides:
+    - r-sleuth
+    - r-dplyr
