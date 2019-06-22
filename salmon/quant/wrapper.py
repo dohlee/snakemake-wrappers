@@ -53,6 +53,7 @@ user_parameters.append(optionify_params('mimicStrictBT2', '--mimicStrictBT2'))
 user_parameters.append(optionify_params('hardFilter', '--hardFilter'))
 user_parameters.append(optionify_params('writeMappings', '--writeMappings'))
 user_parameters.append(optionify_params('consistentHits', '--consistentHits'))
+user_parameters.append(optionify_params('numBootstraps', '--numBootstraps'))
 user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.

@@ -119,7 +119,11 @@ rule salmon_quant:
         # distance apart).
         # Default: False
         consistentHits = False,
-        # NOTE: Advanced options are omitted here, so please refer to the documentation for whole options.
+        # Number of bootstrap samples to generate. Note: This is mutually exclusive with Gibbs sampling.
+        # Default: False (0)
+        numBootstraps = False,
+        # NOTE: The rest of advanced options are omitted here
+        # so please refer to the documentation for whole options.
     threads: 8
     log: 'logs/salmon/quant/{sample}.log'
     benchmark: 'benchmarks/salmon/quant/{sample}.log'
