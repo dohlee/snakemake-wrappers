@@ -16,9 +16,6 @@ rule bwa_index:
         # with genomes longer than 2GB.
         # Default: 'bwtsw',
         a = 'bwtsw',
-        # Prefix of the index.
-        # Default: False [same as fasta name]
-        p = False,
         # Block size for the bwtsw algorithm (effective with -a bwtsw).
         # Default: False [10000000]
         b = False,

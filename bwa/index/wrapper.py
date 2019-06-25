@@ -3,10 +3,25 @@ __copyright__ = "Copyright 2018, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
-
 from os import path
-
 from snakemake.shell import shell
+
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
+
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
@@ -23,6 +38,11 @@ class RuleOutputException(Exception):
 
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
+user_parameters = []
+user_parameters.append(optionify_params('a', '-a'))
+user_parameters.append(optionify_params('b', '-b'))
+user_parameters.append(optionify_params('6', '-6'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Assert input and output have been correctly given.
 if len(snakemake.input) != 1:
@@ -35,18 +55,13 @@ if len(snakemake.output) != 5:
 reference = snakemake.input[0]
 prefix = path.splitext(reference)[0]
 
-algorithm = snakemake.params.get('algorithm', 'bwtsw')
-# Assert the algorithm is 'is' or 'bwtsw'.
-if algorithm not in ['is', 'bwtsw']:
-    raise RuleParameterException('Algorithm should be "is" or "bwtsw"')
-
 # Execute shell command.
 shell(
     "("
     "bwa index "
     "-p {prefix} "
-    "-a {algorithm} "
     "{extra} "
+    "{user_parameters} "
     "{reference} "
     ") "
     "{log}"

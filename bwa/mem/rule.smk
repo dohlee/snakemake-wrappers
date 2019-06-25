@@ -70,9 +70,6 @@ rule bwa_mem:
         # intractg: -B9 -O16 -L5 (intra-species contigs to ref)
         # Default: False
         x = False,
-        # Smart pairing (ignoring in2.fq)
-        # Default: False
-        p = False,
         # Read group header line such as '@RG\tID:foo\tSM:bar'
         # Default: False
         # NOTE: You should check the platform information of the read data!

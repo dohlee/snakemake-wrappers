@@ -5,34 +5,74 @@ __license__ = "MIT"
 
 
 from os import path
-
 from snakemake.shell import shell
+
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
 
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
+user_parameters = []
+user_parameters.append(optionify_params('k', '-k'))
+user_parameters.append(optionify_params('w', '-w'))
+user_parameters.append(optionify_params('d', '-d'))
+user_parameters.append(optionify_params('r', '-r'))
+user_parameters.append(optionify_params('y', '-y'))
+user_parameters.append(optionify_params('c', '-c'))
+user_parameters.append(optionify_params('D', '-D'))
+user_parameters.append(optionify_params('W', '-W'))
+user_parameters.append(optionify_params('m', '-m'))
+user_parameters.append(optionify_params('S', '-S'))
+user_parameters.append(optionify_params('P', '-P'))
+user_parameters.append(optionify_params('A', '-A'))
+user_parameters.append(optionify_params('B', '-B'))
+user_parameters.append(optionify_params('O', '-O'))
+user_parameters.append(optionify_params('E', '-E'))
+user_parameters.append(optionify_params('L', '-L'))
+user_parameters.append(optionify_params('U', '-U'))
+user_parameters.append(optionify_params('x', '-x'))
+user_parameters.append(optionify_params('R', '-R'))
+user_parameters.append(optionify_params('H', '-H'))
+user_parameters.append(optionify_params('j', '-j'))
+user_parameters.append(optionify_params('5', '-5'))
+user_parameters.append(optionify_params('q', '-q'))
+user_parameters.append(optionify_params('K', '-K'))
+user_parameters.append(optionify_params('v', '-v'))
+user_parameters.append(optionify_params('T', '-T'))
+user_parameters.append(optionify_params('h', '-h'))
+user_parameters.append(optionify_params('a', '-a'))
+user_parameters.append(optionify_params('C', '-C'))
+user_parameters.append(optionify_params('V', '-V'))
+user_parameters.append(optionify_params('M', '-M'))
+user_parameters.append(optionify_params('I', '-I'))
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
 reads = snakemake.input.reads
-mates = snakemake.input.get('mates', '')
 reference = snakemake.input.reference
-
 db_prefix = path.splitext(reference)[0]
-
-# If -p option is present, 'mates' will be ignored and bwa-mem will assume 2i and 2i+1-th read files are paired.
-input_is_interleaved = '-p' in extra
-if input_is_interleaved and mates != '':  # Kindly reformat input data for mistaken input.
-    reads = [file for pair in zip(read, mate) for file in pair]  # Interleave two lists!
-    mates = ''
 
 # Extract required outputs.
 output = snakemake.output[0]
 
 pipe_command = ''
 # bwa-mem output defaults to sam. Convert sam to bam with samtools.
-# TODO: Use sambamba with appropriate number of threads.
 if output.endswith('.bam'):
     pipe_command = '| samtools view -Sb -'
 
@@ -41,10 +81,10 @@ shell(
     "("
     "bwa mem "
     "{extra} "
+    "{user_parameters} "
     "-t {snakemake.threads} "
     "{db_prefix} "
     "{reads} "
-    "{mates} "
     "{pipe_command} > "
     "{output}) "
     "{log}"
