@@ -22,19 +22,8 @@ def optionify_params(parameter, option):
     except AttributeError:
         return ''
 
-
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
-
-# Define exception classes.
-class RuleInputException(Exception):
-    pass
-
-class RuleParameterException(Exception):
-    pass
-
-class RuleOutputException(Exception):
-    pass
 
 # Extract parameters.
 extra = snakemake.params.get('extra', '')
