@@ -42,7 +42,7 @@ if len(snakemake.output) != 5:
 
 # Extract required inputs.
 reference = snakemake.input[0]
-prefix = path.splitext(reference)[0]
+prefix = path.splitext(snakemake.output[0])[0]
 
 # Execute shell command.
 shell(
