@@ -9,6 +9,22 @@ from snakemake.shell import shell
 # Extract log.
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
+# Define utility function.
+def optionify_params(parameter, option):
+    """Return optionified parameter."""
+    try:
+        if str(snakemake.params[parameter]) == '':
+            return ''
+        if type(snakemake.params[parameter]) == bool:
+            if snakemake.params[parameter]:
+                return option
+            else:
+                return ''
+        else:
+            return option + ' ' + str(snakemake.params[parameter])
+    except AttributeError:
+        return ''
+
 # Extract required arguments.
 sorted_bam = snakemake.input[0]
 duplicates_marked_bam = snakemake.output[0]
