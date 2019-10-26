@@ -1,4 +1,6 @@
 channels:
   - bioconda
+  - anaconda
 dependencies:
     - sra-tools
+    - pigz
