@@ -20,8 +20,8 @@ extra = snakemake.params.get('extra', '')
 
 # Extract required arguments.
 sra = snakemake.input
-sra_dir = os.path.dirname(sra)
-sra_file = os.path.basename(sra)
+sra_dir = path.dirname(sra)
+sra_file = path.basename(sra)
 
 # Output should be one or two files
 # *.read1.fastq.gz, *.read2.fastq.gz
