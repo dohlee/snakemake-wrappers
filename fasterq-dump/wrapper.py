@@ -20,6 +20,8 @@ extra = snakemake.params.get('extra', '')
 
 # Extract required arguments.
 sra = snakemake.input
+sra_dir = os.path.dirname(sra)
+sra_file = os.path.basename(sra)
 
 # Output should be one or two files
 # *.read1.fastq.gz, *.read2.fastq.gz
@@ -43,9 +45,7 @@ if len(snakemake.output) == 2:
     gzip_command = '&& pigz %s.sra_1.fastq --processes %d' \
                    '&& pigz %s.sra_2.fastq --processes %d' %\
                    (sample_name, snakemake.threads,
-                    sample_name, snakemake.threads)
-
-    rename_command = '&& mv %s %s ' \
+                    sample_name, snakemake.threads) rename_command = '&& mv %s %s ' \
                      '&& mv %s %s ' %\
                      (raw_read1_file, renamed_read1_file,
                       raw_read2_file, renamed_read2_file)
@@ -65,8 +65,9 @@ else:
 # Execute shell command.
 shell(
     "("
+    "cd {sra_dir} && "
     "fasterq-dump "
-    "{sra} "
+    "{sra_file} "
     "--threads {snakemake.threads} "
     "--outdir {output_directory} "
     "--split-3 --skip-technical "
