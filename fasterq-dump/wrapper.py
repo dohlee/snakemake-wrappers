@@ -45,7 +45,9 @@ if len(snakemake.output) == 2:
     gzip_command = '&& pigz %s.sra_1.fastq --processes %d' \
                    '&& pigz %s.sra_2.fastq --processes %d' %\
                    (sample_name, snakemake.threads,
-                    sample_name, snakemake.threads) rename_command = '&& mv %s %s ' \
+                    sample_name, snakemake.threads)
+
+    rename_command = '&& mv %s %s ' \
                      '&& mv %s %s ' %\
                      (raw_read1_file, renamed_read1_file,
                       raw_read2_file, renamed_read2_file)
