@@ -12,5 +12,5 @@ rule tabix_index:
     params:
         extra = ''
     threads: 1
-    logs: 'logs/tabix/{file}.log'
+    log: 'logs/tabix/{file}.log'
     wrapper: 'http://dohlee-bio.info:9193/tabix'

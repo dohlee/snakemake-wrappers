@@ -42,7 +42,6 @@ shell(
     "tabix "
     "{extra} "
     "{preset_option} "
-    "{user_parameters} "
     "{input} "
     ") "
     "{log}"
