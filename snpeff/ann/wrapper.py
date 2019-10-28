@@ -58,7 +58,7 @@ if output.endswith('vcf'):
     pipe_command = '> %s' % output
 elif output.endswith('vcf.gz'):
     output_format = 'vcf'
-    pipe_command = '| gzip > %s' % output
+    pipe_command = '| bgzip > %s' % output
 elif output.endswith('bed'):
     output_format = 'bed'
     pipe_command = '> %s' % output
