@@ -74,7 +74,7 @@ configure_command = 'configManta.py --tumorBam %s --normalBam %s --referenceFast
 execution_command = '%s/runWorkflow.py -m local -j %d' % (run_directory, snakemake.threads)
 
 # Move manta results to desired output directory.
-srcs = ['csi_orig', 'csv_orig', 'dsv_orig', 'ssv_orig', 'csi_idx_orig', 'csv_idx_orig', 'dsv_idx_orig', 'ssv_idx_orig']
+srcs = [csi_orig, csv_orig, dsv_orig, ssv_orig, csi_idx_orig, csv_idx_orig, dsv_idx_orig, ssv_idx_orig]
 dsts = ['csi', 'csv', 'dsv', 'ssv', 'csi_idx', 'csv_idx', 'dsv_idx', 'ssv_idx']
 move_params = [(src, dst) for src, dst in zip(srcs, dsts)]
 move_command = ['mv %s %s' % (src, dst) for src, dst in move_params]
