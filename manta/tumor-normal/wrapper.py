@@ -63,6 +63,10 @@ csi_orig = '%s/results/variants/candidateSmallIndels.vcf.gz' % run_directory
 csv_orig = '%s/results/variants/candidateSV.vcf.gz' % run_directory
 dsv_orig = '%s/results/variants/diploidSV.vcf.gz' % run_directory
 ssv_orig = '%s/results/variants/somaticSV.vcf.gz' % run_directory
+csi_idx_orig = '%s/results/variants/candidateSmallIndels.vcf.gz.tbi' % run_directory
+csv_idx_orig = '%s/results/variants/candidateSV.vcf.gz.tbi' % run_directory
+dsv_idx_orig = '%s/results/variants/diploidSV.vcf.gz.tbi' % run_directory
+ssv_idx_orig = '%s/results/variants/somaticSV.vcf.gz.tbi' % run_directory
 
 # Manta requires two steps: configuration and execution.
 configure_command = 'configManta.py --tumorBam %s --normalBam %s --referenceFasta %s --runDir %s %s %s' % \
@@ -70,7 +74,8 @@ configure_command = 'configManta.py --tumorBam %s --normalBam %s --referenceFast
 execution_command = '%s/runWorkflow.py -m local -j %d' % (run_directory, snakemake.threads)
 
 # Move manta results to desired output directory.
-move_command = ('mv %s %s ' * 8) % (csi_orig, csi, csv_orig, csv, dsv_orig, dsv, ssv_orig, ssv)
+move_command = ('mv %s %s ' * 8) % \
+        (csi_orig, csi, csv_orig, csv, dsv_orig, dsv, ssv_orig, ssv, csi_idx_orig, csi_idx, csv_idx_orig, csv_idx, dsv_idx_orig, dsv_idx, ssv_idx_orig, ssv_idx)
 move_command = move_command.strip()
 
 # Clean temporary directories.
