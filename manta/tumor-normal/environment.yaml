@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - strelka=1.6.0
