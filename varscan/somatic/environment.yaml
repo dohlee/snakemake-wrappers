@@ -1,5 +1,7 @@
 channels:
+  - conda-forge
   - bioconda
+  - defaults
 dependencies:
   - varscan=2.4.3
   - samtools=1.9
