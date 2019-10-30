@@ -35,8 +35,7 @@ reference = snakemake.input.reference
 snv_output = snakemake.output.snv
 indel_output = snakemake.output.indel
 
-# TODO: Fixme!
-output_prefix = snv_output[snv_output.find('.snvs.varscan'):]
+output_prefix = snv_output[:snv_output.find('.snvs.varscan')]
 
 # Extract optional parameters.
 user_parameters = []
