@@ -46,7 +46,12 @@ vcf = snakemake.input.vcf
 db = snakemake.input.db
 
 output = snakemake.output[0]
-pipe_command = '> %s' % output
+if output.endswith('vcf'):
+    pipe_command = '> %s' % output
+elif output.endswith('vcf.gz'):
+    pipe_command = '| bgzip > %s' % output
+else:
+    raise ValueError('Unrecognized output suffix: %s' % output)
 
 user_parameters = []
 user_parameters.append(optionify_params('id', '-id'))
