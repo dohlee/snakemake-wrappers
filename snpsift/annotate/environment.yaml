@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - bioconda
+  - default
+dependencies:
+  - snpsift=4.3.1t
