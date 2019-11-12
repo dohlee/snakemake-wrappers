@@ -82,7 +82,7 @@ predicted_out = [f'{snakemake.wildcards.a}_vs_{snakemake.wildcards.b}']
 output_params = ['c', 'CpN', 'd', 'G', 'p', 'P', 'S']
 for param in output_params:
     predicted_out.append(format_option_for_defiant_output(param))
-predicted_out = '_'.join(predicted_out) + '.tsv'
+predicted_out = '_'.join([o for o in predicted_out if o != '']) + '.tsv'
 move_command = f'mv {predicted_out} {out}'
 
 # Execute shell command.
@@ -90,10 +90,10 @@ shell(
     "("
     "defiant "
     "-L {snakemake.wildcards.a},{snakemake.wildcards.b} "
-    "-i {a_files} {b_files} "
     "{extra} "
     "{user_parameters} "
-    "-cpu {snakemake.threads} && "
+    "-cpu {snakemake.threads} "
+    "-i {a_files} {b_files} && "
     "{move_command}"
     ")"
     "{log}"
