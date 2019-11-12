@@ -78,9 +78,12 @@ elif output.endswith('_CpG.counts.bedGraph'):
     output_prefix = output[:-20]
 elif output.endswith('_CpG.logit.bedGraph'):
     type_option = '--logit'
-    output_perfix = output[:-19]
+    output_prefix = output[:-19]
+elif output.endswith('.methylKit'):
+    type_option = '--methylKit'
+    output_prefix = output[:-10]
 else:
-    raise ValueError('Unrecognized output format: %s. Use *_CpG.bedGrah or *_CpG.{meth,counts,logit}.bedGraph')
+    raise ValueError('Unrecognized output format: %s. Use *_CpG.bedGraph or *_CpG.{meth,counts,logit}.bedGraph, or *.methylKit')
 
 # Execute shell command.
 shell(
