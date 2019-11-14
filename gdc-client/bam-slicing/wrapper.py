@@ -17,19 +17,14 @@ with open(token_file) as inFile:
 out = snakemake.output[0]
 
 parameters = []
-is_region_specified = snakemake.params.get('region', None) is not None
-is_gencode_specified = snakemake.params.get('gencode', None) is not None
-
-print(snakemake.params.get('region', None))
-print(snakemake.params['region'])
-if is_region_specified:
+if 'region' in snakemake.params.keys():
     for r in snakemake.params['region'].split(','):
         parameters.append('region=' + r)
-if is_gencode_specified:
+if 'gencode' in snakemake.params.keys():
     for g in snakemake.params['gencode'].split(','):
         parameters.append('gencode=' + g)
 
-if len(parameters) != 0:
+if len(parameters) == 0:
     raise ValueError('Please specify at least one parameters for BAM slicing.')
 parameters = '&'.join(parameters)
 
