@@ -17,10 +17,13 @@ with open(token_file) as inFile:
 out = snakemake.output[0]
 
 parameters = []
-if 'region' in snakemake.params.keys():
+is_region_specified = snakemake.params.get('region', None) is not None
+is_gencode_specified = snakemake.params.get('gencode', None) is not None
+
+if is_region_specified:
     for r in snakemake.params['region'].split(','):
         parameters.append('region=' + r)
-if 'gencode' in snakemake.params.keys():
+if is_gencode_specified:
     for g in snakemake.params['gencode'].split(','):
         parameters.append('gencode=' + g)
 
