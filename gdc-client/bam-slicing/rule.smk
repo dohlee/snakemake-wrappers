@@ -1,6 +1,8 @@
 rule bam_slicing:
+    input:
+        token = '',
     output:
-        '{sample}.bam'
+        '{sample}.bam',
     params:
         # Required parameter.
         # GDC UUID for BAM file to slice.
