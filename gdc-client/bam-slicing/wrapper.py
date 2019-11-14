@@ -20,6 +20,8 @@ parameters = []
 is_region_specified = snakemake.params.get('region', None) is not None
 is_gencode_specified = snakemake.params.get('gencode', None) is not None
 
+print(snakemake.params.get('region', None))
+print(snakemake.params['region'])
 if is_region_specified:
     for r in snakemake.params['region'].split(','):
         parameters.append('region=' + r)
