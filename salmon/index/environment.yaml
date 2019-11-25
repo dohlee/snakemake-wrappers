@@ -1,4 +1,4 @@
 channels:
   - bioconda
 dependencies:
-  - salmon
+  - salmon==1.0.0
