@@ -63,21 +63,11 @@ reference = snakemake.input.reference[:-15]  # Strip trailing '.transcripts.fa'.
 output_prefix = get_prefix_of_strings(snakemake.output)
 threads = snakemake.threads
 
-# Paired-end case.
-if isinstance(reads, list) and len(reads) == 2:
-    read_command = '--paired-end %s' % ' '.join(reads)
-elif isinstance(reads, list):
-    if not len(reads) == 1:
-        raise ValueError('Too many read files: %s' % ' '.join(reads))
-    read_command = reads[0]
-else:
-    read_command = reads
-
 # Execute shell command.
 shell(
     "("
     "rsem-calculate-expression "
-    "{read_command} "
+    "{reads} "
     "-p {threads} "
     "{reference} "
     "{output_prefix} "

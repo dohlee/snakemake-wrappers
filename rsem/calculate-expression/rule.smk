@@ -11,7 +11,7 @@ rule rsem_calculate_expression:
         genes = '{sample}.genes.results',
         isoforms = '{sample}.isoforms.results'
     params:
-        extra = '',
+        extra = lambda wildcards: 'PAIRED' if SAMPLE2LIB[wildcards.sample] == 'PAIRED' else '',
         # Input reads do not contain quality scores.
         # If this option is on, fasta input is assumed.
         no_qualities = False,
