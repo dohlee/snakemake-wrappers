@@ -104,10 +104,12 @@ user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
 reads = snakemake.input.reads
-if len(reads) == 2:
+if len(reads) == 2 and isinstance(reads, list):
     read_command = '-1 %s -2 %s' % (reads[0], reads[1])
+elif len(reads) == 1 and isinstance(reads, list):
+    read_command = reads[0]
 else:
-    read_command = '%s' % (reads[0])
+    read_command = reads
 
 index_dir = snakemake.input.index_dir
 prefix = get_common_prefixes([f for f in listdir(index_dir) if not f.startswith('.')])
