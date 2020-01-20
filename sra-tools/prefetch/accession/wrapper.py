@@ -23,7 +23,7 @@ assert snakemake.output[0][:3] in ['SRR', 'ERR', 'DRR'], 'Accession should start
 acc = os.path.basename(snakemake.output[0]).split('.')[0]
 out = snakemake.output
 
-command_template = 'wget https://sra-download{region}.ncbi.nlm.nih.gov/sos{sos}/sra-pub-run-{run}/' + acc + '/' + acc + '.{i} -qO ' + out
+command_template = 'wget https://sra-download{region}.ncbi.nlm.nih.gov/sos{sos}/sra-pub-run-{run}/' + str(acc) + '/' + str(acc) + '.{i} -qO ' + str(out)
 
 wget_commands = []
 for region in ['b.be-md', '.st-va']:
