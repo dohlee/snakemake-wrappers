@@ -31,7 +31,7 @@ for region in ['b.be-md', '.st-va']:
         for run in range(1, 11):
             for i in [1, 2]:
                 wget_command = command_template.format(region=region, sos=sos, run=run, i=i)
-                wget_commands.append(wget_commands)
+                wget_commands.append(wget_command)
 
 command = ' || '.join(wget_commands)
 
