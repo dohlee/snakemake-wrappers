@@ -23,12 +23,12 @@ sra = snakemake.input
 
 # Output should be one or two files
 # *.read1.fastq.gz, *.read2.fastq.gz
-if len(snakemake.output) not in [1, 2]:
-    raise RuleOutputException('Please specify one(single-end) or two(paired-end) fastq files to the output.\n\n\
-                               Hint: *.fastq.gz for single-end, *.read1.fastq.gz and *.read2.fastq.gz for paired-end.')
+if len(snakemake.output) not in [1, 2, 3]:
+    raise RuleOutputException('Please specify one(single-end) or two/three(paired-end) fastq files to the output.\n\n\
+                               Hint: *.fastq.gz for single-end, *.read1.fastq.gz and *.read2.fastq.gz(and optional *_pass.fastq.gz) for paired-end.')
 output_directory = path.dirname(snakemake.output[0]) or '.'
 
-if len(snakemake.output) == 2:
+if len(snakemake.output) > 2:
     # Extract sample name.
     for output in snakemake.output:
         if output.endswith('.read1.fastq.gz'):
@@ -56,7 +56,7 @@ else:
 # If user wants output files to be gzipped, but did not specified --gzip option,
 # kindly add --gzip option to extra options.
 if all(f.endswith('.gz') for f in snakemake.output) and ('--gzip' not in extra):
-    extra += '--gzip'
+    extra = ' '.join([extra, '--gzip'])
 
 # NOTE: I fixed some recommended options for fastq-dump.
 # Refer to: `fastq-dump-best-practice` in https://github.com/dohlee/bioinformatics-one-liners.

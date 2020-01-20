@@ -7,7 +7,7 @@ rule parallel_fastq_dump_single:
         # Required output.
         '{sample}.fastq.gz'
     params:
-        extra = ''
+        extra = '--tmpdir .'
     threads: 4
     wrapper:
         'http://dohlee-bio.info:9193/parallel-fastq-dump'
@@ -24,7 +24,7 @@ rule parallel_fastq_dump_paired:
         temp('{sample}_pass.fastq.gz')
     params:
         # Optional parameters. Omit if unused.
-        extra = ''
+        extra = '--tmpdir .'
     threads: 4
     wrapper:
         'http://dohlee-bio.info:9193/parallel-fastq-dump'
