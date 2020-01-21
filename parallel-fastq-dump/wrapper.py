@@ -28,7 +28,7 @@ if len(snakemake.output) not in [1, 2, 3]:
                                Hint: *.fastq.gz for single-end, *.read1.fastq.gz and *.read2.fastq.gz(and optional *_pass.fastq.gz) for paired-end.')
 output_directory = path.dirname(snakemake.output[0]) or '.'
 
-if len(snakemake.output) > 2:
+if len(snakemake.output) >= 2:
     # Extract sample name.
     for output in snakemake.output:
         if output.endswith('.read1.fastq.gz'):
