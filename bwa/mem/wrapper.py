@@ -73,7 +73,9 @@ output = snakemake.output[0]
 
 pipe_command = ''
 # bwa-mem output defaults to sam. Convert sam to bam with samtools.
-if output.endswith('.bam'):
+if output.endswith('.sorted.bam'):
+    pipe_command = '| samtools view -Sb - | samtools sort'
+elif output.endswith('.bam'):
     pipe_command = '| samtools view -Sb -'
 
 # Execute shell command.
