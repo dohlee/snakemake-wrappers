@@ -5,7 +5,7 @@ __license__ = "MIT"
 
 import itertools
 
-from os import path, listdir, dirname
+from os import path, listdir
 from snakemake.shell import shell
 
 # Define utility function.
@@ -62,11 +62,11 @@ user_parameters.append(optionify_params('quiet', '--quiet'))
 user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
-directory_name = dirname(snakemake.input[0])
+directory_name = path.dirname(snakemake.input[0])
 
 # Extract required outputs.
 output = snakemake.output[0]
-output_directory = dirname(output)
+output_directory = path.dirname(output)
 
 # Always print out to stdout, and redirect it.
 user_parameters.append(f'--outdir {output_directory}')
