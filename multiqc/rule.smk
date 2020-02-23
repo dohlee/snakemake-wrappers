@@ -4,7 +4,7 @@ rule multiqc:
     output:
         'FASTQC_OUTDIR/multiqc_report.html',
     params:
-        extra = ''
+        extra = '',
         # Overwrite any existing reports.
         # Default: True
         force = True,
@@ -77,7 +77,7 @@ rule multiqc:
         interactive = False,
         # Use strict linting (validation) to help code development.
         # Default: False
-        lint = False
+        lint = False,
         # Creates PDF report with 'simple' template.
         # Requires Pandoc to be installed.
         # Default: False

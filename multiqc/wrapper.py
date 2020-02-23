@@ -61,14 +61,16 @@ user_parameters.append(optionify_params('verbose', '--verbose'))
 user_parameters.append(optionify_params('quiet', '--quiet'))
 user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
-# Always print out to stdout, and redirect it.
-user_parameters.append('--filename stdout')
-
 # Extract required inputs.
 directory_name = dirname(snakemake.input[0])
 
 # Extract required outputs.
 output = snakemake.output[0]
+output_directory = dirname(output)
+
+# Always print out to stdout, and redirect it.
+user_parameters.append(f'--outdir {output_directory}')
+user_parameters.append('--filename stdout')
 
 # Execute shell command.
 shell(
