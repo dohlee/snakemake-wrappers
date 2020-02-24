@@ -59,7 +59,6 @@ user_parameters.append(optionify_params('config', '--config'))
 user_parameters.append(optionify_params('cl_config', '--cl-config'))
 user_parameters.append(optionify_params('verbose', '--verbose'))
 user_parameters.append(optionify_params('quiet', '--quiet'))
-user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.
 directory_name = path.dirname(snakemake.input[0])
@@ -71,6 +70,7 @@ output_directory = path.dirname(output)
 # Always print out to stdout, and redirect it.
 user_parameters.append(f'--outdir {output_directory}')
 user_parameters.append('--filename stdout')
+user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Execute shell command.
 shell(
