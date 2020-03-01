@@ -41,6 +41,10 @@ rule salmon_quant:
         # parts of the abundance estimation model that make less sense for metagenomic data.
         # Default: False
         meta = False,
+        # Number of bootstrap samples to generate.
+        # Note: This is mutually exclusive with Gibbs sampling.
+        # Default: False
+        numBootstraps = False
         # NOTE: The rest of advanced options are omitted here.
         # so please refer to the documentation for whole options.
     threads: 8

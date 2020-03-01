@@ -36,6 +36,7 @@ user_parameters.append(optionify_params('gcBias', '--gcBias'))
 user_parameters.append(optionify_params('incompatPrior', '--incompatPrior'))
 user_parameters.append(optionify_params('geneMap', '--geneMap'))
 user_parameters.append(optionify_params('meta', '--meta'))
+user_parameters.append(optionify_params('numBootstraps', '--numBootstraps'))
 user_parameters = ' '.join([p for p in user_parameters if p != ''])
 
 # Extract required inputs.

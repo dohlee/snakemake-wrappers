@@ -51,6 +51,7 @@ fastq = snakemake.input.fastq
 fastq = [fastq] if isinstance(fastq, str) else fastq
 if len(fastq) > 2:
     raise RuleInputException('Your sequencing read should be single-read or paired-end.')
+
 single_flag = '' if len(fastq) == 2 else '--single'
 if single_flag and (fragment_length == '' or standard_deviation == ''):
     raise RuleParameterException('Please provide fragment length(-l) and standard deviation(-s) parameter for single-end reads.')
