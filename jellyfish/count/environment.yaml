@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - kmer-jellyfish=2.3.0
