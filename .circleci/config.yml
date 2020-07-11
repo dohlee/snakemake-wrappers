@@ -30,5 +30,5 @@ jobs:
       # Run tests.
       - run: |
           for test in `cat $HOME/tests.list`; do
-          snakemake -s $test --directory ${test%test.smk} --use-conda --wrapper-prefix 'http://dohlee-bio.info:9193/';
+          snakemake -s $test --directory ${test%test.smk} --cores 2 --use-conda --wrapper-prefix 'http://dohlee-bio.info:9193/';
           done
