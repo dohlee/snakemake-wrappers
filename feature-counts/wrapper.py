@@ -1,5 +1,5 @@
 __author__ = "Dohoon Lee"
-__copyright__ = "Copyright 2018, Dohoon Lee"
+__copyright__ = "Copyright 2020, Dohoon Lee"
 __email__ = "dohlee.bioinfo@gmail.com"
 __license__ = "MIT"
 
@@ -42,19 +42,31 @@ annotation = snakemake.input.annotation
 output = snakemake.output
 
 # Extract optional parameters.
-annotation_format = optionify_params('annotation_format', '-F')
-feature_type = optionify_params('feature_type', '-t')
-attribute_type = optionify_params('attribute_type', '-g')
-min_overlap = optionify_params('min_overlap', '--minOverlap')
+user_parameters = []
+user_parameters.append(optionify_params('annotation_format', '-F'))
+user_parameters.append(optionify_params('feature_type', '-t'))
+user_parameters.append(optionify_params('attribute_type', '-g'))
+user_parameters.append(optionify_params('extra_attributes', '--extraAttributes'))
+user_parameters.append(optionify_params('chromosome_name_alias', '-A'))
+user_parameters.append(optionify_params('feature_level_counting', '-f'))
+user_parameters.append(optionify_params('multi_overlapping_reads', '-O'))
+user_parameters.append(optionify_params('min_overlap', '--minOverlap'))
+user_parameters.append(optionify_params('frac_overlap_feature', '--fracOverlapFeature'))
+user_parameters.append(optionify_params('largest_overlap', '--largestOverlap'))
+user_parameters.append(optionify_params('non_overlap', '--nonOverlap'))
+user_parameters.append(optionify_params('non_overlap_feature', '--nonOverlapFeature'))
+user_parameters.append(optionify_params('read_extension_5', '--readExtension5'))
+user_parameters.append(optionify_params('read_extension_3', '--readExtension3'))
+user_parameters.append(optionify_params('read2pos', '--read2pos'))
+user_parameters.append(optionify_params('count_multi_mapping', '-M'))
+user_parameters = ' '.join(user_parameters)
 
 # Execute shell command.
 shell(
     "("
     "featureCounts "
     "{extra} "
-    "{annotation_format} "
-    "{attribute_type} "
-    "{min_overlap} "
+    "{user_parameters} "
     "-T {snakemake.threads} "
     "-a {annotation} "
     "-o {output} "
