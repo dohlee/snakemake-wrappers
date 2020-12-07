@@ -4,14 +4,19 @@ HTTP = HTTPRemoteProvider()
 rule all:
     input: 'simulated.fastq.gz', 'simulated.read1.fastq.gz', 'simulated.read2.fastq.gz'
 
-rule gzip_fastx:
-    input: '{file}'
-    output: '{file, .*\.fast[aq]}.gz'
+rule gzip_fastq:
+    input: '{file}.fastq'
+    output: '{file}.fastq.gz'
     shell: 'gzip {input}'
 
-rule gunzip_fastx:
-    input: '{file}.gz'
-    output: '{file, .*\.fast[aq]}'
+rule gunzip_fastq:
+    input: '{file}.fastq.gz'
+    output: '{file}.fastq'
+    shell: 'gunzip {input}'
+
+rule gunzip_fasta:
+    input: '{file}.fasta.gz'
+    output: '{file}.fasta'
     shell: 'gunzip {input}'
 
 rule download_reference_genome:
