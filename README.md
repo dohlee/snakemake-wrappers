@@ -60,3 +60,4 @@
   - [subsample-fastq](subsample-fastq)
   - [wgsim](wgsim)
   - [tabix](tabix)
+  - [igvtools](igvtools)
