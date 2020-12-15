@@ -9,4 +9,4 @@ rule to_tdf:
     log: 'logs/igvtools/to_tdf/{sample}.log'
     benchmark: repeat('benchmarks/igvtools/to_tdf/{sample}.benchmark', 1)
     wrapper:
-        'http://dohlee-bio.info:9193/igvtools/to_tdf'
+        'http://dohlee-bio.info:9193/igvtools/totdf'
