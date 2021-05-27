@@ -1,0 +1,6 @@
+channels:
+    - bioconda
+dependencies:
+    - bis-snp
+    - java-jdk
+    - gatk4
