@@ -15,7 +15,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Differential expression</i> </td>
+    <td colspan="2"> <i><b>Differential expression</b></i> </td>
   </tr>
   <tr>
     <td> DESeq2 </td>
@@ -31,7 +31,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Gene expression quantification</i> </td>
+    <td colspan="2"> <i><b>Gene expression quantification</b></i> </td>
   </tr>
   <tr>
     <td> <a href="rsem">rsem</a> </td>
@@ -59,7 +59,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Working with PDB files</i> </td>
+    <td colspan="2"> <i><b>Working with PDB files</b></i> </td>
   </tr>
   <tr>
     <td> <a href="fetch-pdb">fetch-pdb</a> </td>
@@ -67,7 +67,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Variant calling</i> </td>
+    <td colspan="2"> <i><b>Variant calling</b></i> </td>
   </tr>
   <tr>
     <td> <a href="freebayes">freebayes</a> </td>
@@ -87,7 +87,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
   
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Variant annotation</i> </td>
+    <td colspan="2"> <i><b>Variant annotation</b></i> </td>
   </tr>
   <tr>
     <td> <a href="snpeff">snpeff</a> </td>
@@ -95,7 +95,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Copy number analysis</i> </td>
+    <td colspan="2"> <i><b>Copy number analysis</b></i> </td>
   </tr>
   <tr>
     <td> <a href="varscan/copynumber">varscan/copynumber</a> </td>
@@ -115,7 +115,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Sequencing data retrieval</i> </td>
+    <td colspan="2"> <i><b>Sequencing data retrieval</b></i> </td>
   </tr>
   <tr>
     <td> <a href="sra-tools">sra-tools</a> </td>
@@ -131,7 +131,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Sequencing read preprocessing</i> </td>
+    <td colspan="2"> <i><b>Sequencing read preprocessing</b></i> </td>
   </tr>
   <tr>
     <td> <a href="fastqc">fastqc</a> </td>
@@ -147,7 +147,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Sequencing read alignment</i> </td>
+    <td colspan="2"> <i><b>Sequencing read alignment</b></i> </td>
   </tr>
   <tr>
     <td> <a href="bwa">bwa</a> </td>
@@ -163,7 +163,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Splice-aware sequencing read alignment</i> </td>
+    <td colspan="2"> <i><b>Splice-aware sequencing read alignment</b></i> </td>
   </tr>
   <tr>
     <td> <a href="hisat2">hisat2</a> </td>
@@ -175,7 +175,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Bisulfite-treated sequencing read alignment</i> </td>
+    <td colspan="2"> <i><b>Bisulfite-treated sequencing read alignment</b></i> </td>
   </tr>
   <tr>
     <td> <a href="bismark">bismark</a> </td>
@@ -191,7 +191,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Alignment manipulation</i> </td>
+    <td colspan="2"> <i><b>Alignment manipulation</b></i> </td>
   </tr>
   <tr>
     <td> <a href="sambamba">sambamba</a> </td>
@@ -203,7 +203,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Bisulfite-seq postprocessing</i> </td>
+    <td colspan="2"> <i><b>Bisulfite-seq postprocessing</b></i> </td>
   </tr>
   <tr>
     <td> <a href="methyldackel">methyldackel</a> </td>
@@ -211,7 +211,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Miscellaneous</i> </td>
+    <td colspan="2"> <i><b>Miscellaneous</b></i> </td>
   </tr>
   <tr>
     <td> <a href="subsample-fastq">subsample-fastq</a> </td>
