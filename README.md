@@ -59,6 +59,14 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
+    <td colspan="2"> <i>Working with PDB files</i> </td>
+  </tr>
+  <tr>
+    <td> <a href="fetch-pdb">fetch-pdb</a> </td>
+    <td> </td>
+  </tr>
+
+  <tr style="background-color:#333333">
     <td colspan="2"> <i>Variant calling</i> </td>
   </tr>
   <tr>
@@ -107,18 +115,6 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Alignment manipulation</i> </td>
-  </tr>
-  <tr>
-    <td> <a href="sambamba">sambamba</a> </td>
-    <td> A faster alternative of samtools. Wrappers for Sort, Index, Merge, Flagstat, Markdup are implemented for now.</td>
-  </tr>
-  <tr>
-    <td> <a href="samtools">samtools</a> </td>
-    <td> Manipulates Sequence Alignment/Map (SAM) format. Wrappers for Sort, Index, Faidx are implemented for now.</td>
-  </tr>
-
-  <tr style="background-color:#333333">
     <td colspan="2"> <i>Sequencing data retrieval</i> </td>
   </tr>
   <tr>
@@ -135,7 +131,7 @@ Snakemake wrappers for bioinformatics research.
   </tr>
 
   <tr style="background-color:#333333">
-    <td colspan="2"> <i>Preprocessing</i> </td>
+    <td colspan="2"> <i>Sequencing read preprocessing</i> </td>
   </tr>
   <tr>
     <td> <a href="fastqc">fastqc</a> </td>
@@ -192,6 +188,18 @@ Snakemake wrappers for bioinformatics research.
   <tr>
     <td> <a href="bsmap">bsmap</a> </td>
     <td> </td>
+  </tr>
+
+  <tr style="background-color:#333333">
+    <td colspan="2"> <i>Alignment manipulation</i> </td>
+  </tr>
+  <tr>
+    <td> <a href="sambamba">sambamba</a> </td>
+    <td> A faster alternative of samtools. Wrappers for Sort, Index, Merge, Flagstat, Markdup are implemented for now.</td>
+  </tr>
+  <tr>
+    <td> <a href="samtools">samtools</a> </td>
+    <td> Manipulates Sequence Alignment/Map (SAM) format. Wrappers for Sort, Index, Faidx are implemented for now.</td>
   </tr>
 
   <tr style="background-color:#333333">
