@@ -63,7 +63,11 @@ Snakemake wrappers for bioinformatics research.
   </tr>
   <tr>
     <td> <a href="fetch-pdb">fetch-pdb</a> </td>
-    <td> </td>
+    <td> Fetch pdb file from RCSB PDB using PDB ID.</td>
+  </tr>
+  <tr>
+    <td> <a href="fetch-pdb-fasta">fetch-pdb-fasta</a> </td>
+    <td> Fetch FASTA sequence associated with PDB ID.</td>
   </tr>
 
   <tr style="background-color:#333333">
