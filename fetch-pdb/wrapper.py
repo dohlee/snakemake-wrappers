@@ -11,7 +11,7 @@ from snakemake.shell import shell
 log = snakemake.log_fmt_shell(stdout=False, stderr=True)
 
 # Extract required inputs.
-pdb_id = os.path.splitext(os.path.basename(snakemake.input.output))[0]
+pdb_id = os.path.splitext(os.path.basename(snakemake.output))[0]
 
 # Extract required outputs.
 output = snakemake.output
